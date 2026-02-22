@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>skedz.shop</title>
     
     <!-- Firebase -->
@@ -10,11 +10,8 @@
     <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore-compat.js"></script>
     
-    <!-- QR Code Generator -->
+    <!-- QR Code -->
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
-    
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -25,26 +22,35 @@
             padding: 0;
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #f0f2f5;
         }
 
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 10px;
+            padding: 0;
         }
 
-        /* Login Screen */
+        /* Login Screen - Full screen on mobile */
         #loginScreen {
             background: white;
             padding: 30px 20px;
-            border-radius: 20px;
             width: 100%;
-            max-width: 400px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            animation: fadeIn 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            max-width: 100%;
+            border-radius: 0;
         }
 
         .login-logo {
@@ -53,7 +59,7 @@
         }
 
         .login-logo i {
-            font-size: 60px;
+            font-size: 80px;
             color: #E4002B;
         }
 
@@ -61,26 +67,29 @@
             text-align: center;
             margin-bottom: 30px;
             color: #333;
-            font-size: 24px;
+            font-size: 28px;
+            font-weight: 600;
         }
 
-        .input-group {
-            margin-bottom: 15px;
+        .login-container {
+            width: 100%;
+            max-width: 350px;
         }
 
         input {
             width: 100%;
             padding: 15px;
+            margin: 10px 0;
             border: 2px solid #ddd;
             border-radius: 12px;
             font-size: 16px;
-            transition: all 0.3s ease;
+            background: #f9f9f9;
         }
 
         input:focus {
             border-color: #E4002B;
             outline: none;
-            transform: scale(1.02);
+            background: white;
         }
 
         button {
@@ -90,57 +99,49 @@
             color: white;
             border: none;
             border-radius: 12px;
-            cursor: pointer;
             font-size: 16px;
             font-weight: 600;
-            margin: 5px 0;
-            transition: all 0.3s ease;
-        }
-
-        button:hover {
-            background: #B3001E;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(228,0,43,0.3);
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.2s;
         }
 
         button:active {
-            transform: translateY(0);
+            transform: scale(0.98);
+            background: #B3001E;
         }
 
         button.secondary {
             background: #666;
         }
 
-        button.secondary:hover {
+        button.secondary:active {
             background: #444;
         }
 
-        /* Main App */
+        /* Main App - Full screen */
         #app {
             width: 100%;
-            max-width: 500px;
+            height: 100%;
             background: white;
-            border-radius: 30px;
-            overflow: hidden;
             display: none;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            height: 90vh;
             position: relative;
+            overflow: hidden;
         }
 
         #app.active {
             display: block;
-            animation: slideUp 0.4s ease;
         }
 
         /* Header */
         .header {
             background: #E4002B;
-            padding: 15px 20px;
+            padding: 15px;
             color: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            height: 60px;
         }
 
         .header-left {
@@ -166,16 +167,7 @@
 
         .cart-icon {
             position: relative;
-            cursor: pointer;
-        }
-
-        .cart-icon i {
-            font-size: 22px;
-            transition: transform 0.2s ease;
-        }
-
-        .cart-icon:active i {
-            transform: scale(1.2);
+            padding: 5px;
         }
 
         .cart-badge {
@@ -185,26 +177,25 @@
             padding: 2px 6px;
             font-size: 11px;
             position: absolute;
-            top: -8px;
-            right: -8px;
+            top: 0;
+            right: 0;
             min-width: 18px;
             text-align: center;
-            animation: pop 0.3s ease;
         }
 
         .user-email {
             font-size: 14px;
             max-width: 120px;
             overflow: hidden;
-            text-overflow: ellipsis;
             white-space: nowrap;
+            text-overflow: ellipsis;
         }
 
-        /* Content Area */
+        /* Content - Takes remaining height */
         .content {
-            height: calc(90vh - 130px);
+            height: calc(100% - 110px);
             overflow-y: auto;
-            padding: 20px;
+            padding: 15px;
             background: #f8f9fa;
             -webkit-overflow-scrolling: touch;
         }
@@ -218,50 +209,43 @@
             background: white;
             display: flex;
             justify-content: space-around;
-            padding: 10px 0;
+            padding: 8px 0;
             border-top: 1px solid #eee;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            height: 50px;
         }
 
         .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 5px;
-            cursor: pointer;
-            padding: 5px 15px;
-            border-radius: 10px;
-            transition: all 0.3s ease;
+            justify-content: center;
+            gap: 3px;
+            padding: 5px 20px;
             color: #999;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .nav-item i {
-            font-size: 22px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-item span {
-            font-size: 12px;
-            font-weight: 500;
+            transition: all 0.2s;
         }
 
         .nav-item.active {
             color: #E4002B;
         }
 
-        .nav-item.active i {
-            transform: translateY(-2px);
+        .nav-item i {
+            font-size: 22px;
+        }
+
+        .nav-item span {
+            font-size: 11px;
+            font-weight: 500;
         }
 
         .nav-item:active {
             background: #f0f0f0;
+            border-radius: 10px;
         }
 
         /* Pages */
         .page {
             display: none;
-            animation: fadeIn 0.3s ease;
         }
 
         .page.active {
@@ -270,8 +254,12 @@
 
         /* Home Page */
         .search-box {
-            margin-bottom: 20px;
-            animation: slideDown 0.4s ease;
+            margin-bottom: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: #f8f9fa;
+            padding: 5px 0;
         }
 
         .search-box input {
@@ -279,25 +267,22 @@
             border: 1px solid #ddd;
             border-radius: 25px;
             padding: 12px 20px;
-            width: 100%;
-            font-size: 16px;
+            margin: 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
         .food-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            animation: fadeIn 0.5s ease;
+            gap: 12px;
         }
 
         .food-card {
             background: white;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-            animation: scaleIn 0.4s ease;
-            animation-fill-mode: both;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.2s;
         }
 
         .food-card:active {
@@ -313,31 +298,26 @@
         }
 
         .food-icon i {
-            font-size: 40px;
+            font-size: 45px;
             color: white;
-            opacity: 0.9;
-            transition: all 0.3s ease;
         }
 
         .food-info {
-            padding: 15px;
+            padding: 12px;
         }
 
         .food-name {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
-            color: #333;
             margin-bottom: 5px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            color: #333;
         }
 
         .food-price {
             color: #E4002B;
             font-size: 18px;
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .add-to-cart-btn {
@@ -346,16 +326,10 @@
             border: none;
             padding: 8px 0;
             border-radius: 20px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
-            cursor: pointer;
             width: 100%;
-            transition: all 0.3s ease;
-        }
-
-        .add-to-cart-btn:active {
-            transform: scale(0.95);
-            background: #B3001E;
+            margin: 0;
         }
 
         /* Add Page */
@@ -364,13 +338,13 @@
             padding: 25px;
             border-radius: 20px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            animation: slideUp 0.4s ease;
         }
 
         .form-title {
             text-align: center;
             margin-bottom: 20px;
             color: #333;
+            font-size: 20px;
         }
 
         /* Overview Page */
@@ -378,36 +352,28 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            animation: slideDown 0.4s ease;
-            flex-wrap: wrap;
-            gap: 10px;
+            margin-bottom: 15px;
         }
 
         .date-info {
             font-size: 14px;
             color: #666;
+            font-weight: 500;
         }
 
         .stats-grid {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 20px;
-            animation: fadeIn 0.5s ease;
+            gap: 8px;
+            margin-bottom: 15px;
         }
 
         .stat-card {
             background: white;
-            padding: 15px 10px;
+            padding: 15px 5px;
             border-radius: 16px;
             text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-        }
-
-        .stat-card:active {
-            transform: scale(0.95);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
         .stat-title {
@@ -423,17 +389,12 @@
         }
 
         /* Charts */
-        .charts-container {
-            margin-bottom: 20px;
-            animation: fadeIn 0.6s ease;
-        }
-
         .chart-card {
             background: white;
-            border-radius: 20px;
+            border-radius: 16px;
             padding: 15px;
             margin-bottom: 15px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
         .chart-title {
@@ -444,17 +405,21 @@
         }
 
         .chart-wrapper {
-            height: 150px;
+            height: 130px;
             position: relative;
         }
 
-        /* Orders List */
+        canvas {
+            max-width: 100%;
+            height: auto !important;
+        }
+
+        /* Orders */
         .orders-list {
             background: white;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            animation: slideUp 0.5s ease;
+            border-radius: 16px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
         .orders-header {
@@ -462,13 +427,10 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
-            flex-wrap: wrap;
-            gap: 10px;
         }
 
-        .orders-title {
+        .orders-header h4 {
             font-size: 16px;
-            font-weight: 600;
             color: #333;
         }
 
@@ -477,17 +439,15 @@
             border: none;
             padding: 8px 15px;
             border-radius: 20px;
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            font-size: 12px;
             display: flex;
             align-items: center;
             gap: 5px;
+            color: #333;
         }
 
         .view-old-btn:active {
             background: #ddd;
-            transform: scale(0.95);
         }
 
         .order-item {
@@ -496,20 +456,18 @@
             align-items: center;
             padding: 12px 0;
             border-bottom: 1px solid #eee;
-            animation: slideRight 0.3s ease;
-            animation-fill-mode: both;
         }
 
         .order-item:last-child {
             border-bottom: none;
         }
 
-        .order-item:active {
-            background: #f8f9fa;
-            transform: translateX(5px);
+        .order-item small {
+            color: #999;
+            font-size: 11px;
         }
 
-        /* Modals */
+        /* Modals - Full screen on mobile */
         .modal {
             display: none;
             position: fixed;
@@ -521,8 +479,6 @@
             justify-content: center;
             align-items: center;
             z-index: 2000;
-            animation: fadeIn 0.3s ease;
-            padding: 10px;
         }
 
         .modal.active {
@@ -533,64 +489,57 @@
             background: white;
             padding: 25px;
             border-radius: 25px;
-            max-width: 400px;
-            width: 100%;
+            max-width: 90%;
+            width: 350px;
             max-height: 80vh;
             overflow-y: auto;
-            animation: slideUp 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         .cart-item {
             display: flex;
             justify-content: space-between;
-            align-items: center;
             padding: 12px 0;
             border-bottom: 1px solid #eee;
-            animation: slideRight 0.3s ease;
         }
 
         .cart-total {
             margin: 20px 0;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
             text-align: right;
         }
 
         .payment-option {
             padding: 15px;
-            margin: 10px 0;
+            margin: 8px 0;
             border: 2px solid #ddd;
             border-radius: 12px;
-            cursor: pointer;
             text-align: center;
             font-size: 16px;
-            transition: all 0.3s ease;
+            font-weight: 500;
+            transition: all 0.2s;
         }
 
         .payment-option.selected {
             border-color: #E4002B;
             background: #fff0f0;
-            transform: scale(1.02);
+            color: #E4002B;
         }
 
         .payment-option:active {
             transform: scale(0.98);
         }
 
-        .payment-option i {
-            margin-right: 10px;
-            color: #E4002B;
-        }
-
         .qr-container {
             text-align: center;
-            margin: 20px 0;
+            margin: 15px 0;
         }
 
         #qrCode {
-            width: 180px;
-            height: 180px;
-            margin: 0 auto 15px;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
             display: block;
         }
 
@@ -599,46 +548,37 @@
             padding: 15px;
             border-radius: 12px;
             margin: 15px 0;
+            text-align: center;
         }
 
         .upi-id {
-            font-size: 16px;
             font-weight: bold;
-            color: #333;
+            font-size: 16px;
             margin-bottom: 5px;
             word-break: break-all;
         }
 
-        .amount-display {
-            font-size: 20px;
-            color: #E4002B;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-
-        /* Old Days Modal */
+        /* Old Days List */
         .day-item {
             padding: 15px;
             border-bottom: 1px solid #eee;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            animation: slideRight 0.3s ease;
+            transition: all 0.2s;
         }
 
         .day-item:active {
-            background: #f0f0f0;
+            background: #f5f5f5;
             transform: translateX(5px);
         }
 
         .day-date {
             font-weight: 600;
             color: #333;
+            margin-bottom: 3px;
         }
 
         .day-total {
             color: #E4002B;
-            font-size: 14px;
-            margin-top: 5px;
+            font-size: 13px;
         }
 
         .back-btn {
@@ -646,11 +586,11 @@
             border: none;
             padding: 8px 15px;
             border-radius: 20px;
-            font-size: 13px;
-            cursor: pointer;
-            display: flex;
+            font-size: 12px;
+            display: inline-flex;
             align-items: center;
             gap: 5px;
+            margin-left: 10px;
         }
 
         /* Notification */
@@ -662,107 +602,92 @@
             background: #4CAF50;
             color: white;
             padding: 12px 25px;
-            border-radius: 25px;
+            border-radius: 30px;
             display: none;
             z-index: 3000;
+            font-size: 14px;
+            font-weight: 500;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            animation: slideDown 0.3s ease;
             white-space: nowrap;
             max-width: 90%;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
         .notification.show {
             display: block;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(30px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            animation: slideDown 0.3s;
         }
 
         @keyframes slideDown {
             from {
-                transform: translateY(-30px);
+                transform: translate(-50%, -100%);
                 opacity: 0;
             }
             to {
-                transform: translateY(0);
+                transform: translate(-50%, 0);
                 opacity: 1;
             }
         }
 
-        @keyframes slideRight {
-            from {
-                transform: translateX(-20px);
-                opacity: 0;
+        /* Hide scrollbar but keep functionality */
+        .content::-webkit-scrollbar {
+            width: 0;
+            background: transparent;
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 350px) {
+            .food-grid {
+                grid-template-columns: 1fr;
             }
-            to {
-                transform: translateX(0);
-                opacity: 1;
+            
+            .stats-grid {
+                gap: 4px;
+            }
+            
+            .stat-card {
+                padding: 10px 3px;
+            }
+            
+            .stat-value {
+                font-size: 16px;
+            }
+            
+            .user-email {
+                display: none;
+            }
+            
+            .header-left span {
+                font-size: 16px;
             }
         }
 
-        @keyframes scaleIn {
-            from {
-                transform: scale(0.9);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        @keyframes pop {
-            from {
-                transform: scale(0);
-            }
-            to {
-                transform: scale(1);
-            }
-        }
-
-        /* PC Specific */
+        /* PC styles */
         @media (min-width: 768px) {
+            body {
+                padding: 20px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            }
+
+            #loginScreen {
+                max-width: 400px;
+                height: auto;
+                border-radius: 30px;
+                padding: 40px;
+            }
+
             #app {
                 max-width: 1200px;
-                height: 800px;
+                height: 90vh;
+                border-radius: 30px;
             }
 
             .content {
-                height: calc(800px - 130px);
+                padding: 25px;
             }
 
             .food-grid {
                 grid-template-columns: repeat(4, 1fr);
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .charts-container {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
                 gap: 20px;
-            }
-
-            .chart-card {
-                margin-bottom: 0;
             }
 
             .food-card:hover {
@@ -771,53 +696,11 @@
             }
 
             .nav-item:hover {
-                background: #f0f0f0;
-            }
-
-            .view-old-btn:hover {
-                background: #ddd;
-            }
-
-            .day-item:hover {
-                background: #f0f0f0;
-            }
-        }
-
-        /* Mobile Specific */
-        @media (max-width: 480px) {
-            .user-email {
-                display: none;
-            }
-
-            .food-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr 1fr 1fr;
-                gap: 5px;
-            }
-
-            .stat-card {
-                padding: 10px 5px;
-            }
-
-            .stat-value {
-                font-size: 16px;
+                color: #E4002B;
             }
 
             .modal-content {
-                padding: 20px;
-            }
-
-            .overview-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .view-old-btn {
-                width: 100%;
-                justify-content: center;
+                width: 400px;
             }
         }
     </style>
@@ -829,16 +712,14 @@
             <i class="fas fa-store"></i>
         </div>
         <h2 class="login-title">skedz.shop</h2>
-        <div class="input-group">
-            <input type="email" id="loginEmail" placeholder="Email" autocomplete="off">
-        </div>
-        <div class="input-group">
+        <div class="login-container">
+            <input type="email" id="loginEmail" placeholder="Email">
             <input type="password" id="loginPassword" placeholder="Password">
+            <button onclick="handleAuth()" id="authBtn">Login</button>
+            <p style="text-align: center; margin-top: 15px;">
+                <a onclick="toggleAuthMode()" style="color: #E4002B; cursor: pointer; text-decoration: none;">Create Account</a>
+            </p>
         </div>
-        <button onclick="handleAuth()" id="authBtn">Login</button>
-        <p style="text-align: center; margin-top: 15px;">
-            <a onclick="toggleAuthMode()" style="color: #E4002B; cursor: pointer; text-decoration: none;">Create Account</a>
-        </p>
     </div>
 
     <!-- Main App -->
@@ -859,9 +740,9 @@
             </div>
         </div>
 
-        <!-- Content Area -->
+        <!-- Content -->
         <div class="content" id="contentArea">
-            <!-- Home Page -->
+            <!-- Home -->
             <div id="homePage" class="page active">
                 <div class="search-box">
                     <input type="text" id="searchInput" placeholder="🔍 Search food..." onkeyup="searchFood()">
@@ -869,25 +750,21 @@
                 <div class="food-grid" id="foodGrid"></div>
             </div>
 
-            <!-- Add Page -->
+            <!-- Add -->
             <div id="addPage" class="page">
                 <div class="add-form">
                     <h3 class="form-title">Add New Food Item</h3>
-                    <div class="input-group">
-                        <input type="text" id="foodName" placeholder="Food Name">
-                    </div>
-                    <div class="input-group">
-                        <input type="number" id="foodPrice" placeholder="Price (₹)">
-                    </div>
-                    <button onclick="publishFood()" id="publishBtn">Publish Food</button>
+                    <input type="text" id="foodName" placeholder="Food Name">
+                    <input type="number" id="foodPrice" placeholder="Price (₹)">
+                    <button onclick="publishFood()">Publish Food</button>
                 </div>
             </div>
 
-            <!-- Overview Page -->
+            <!-- Overview -->
             <div id="overviewPage" class="page">
                 <div class="overview-header">
                     <div class="date-info" id="currentDate"></div>
-                    <button onclick="showNewDayModal()" style="width: auto; padding: 10px 15px;">Start New Day</button>
+                    <button onclick="showNewDayModal()" style="width: auto; padding: 8px 15px;">New Day</button>
                 </div>
                 
                 <div class="stats-grid">
@@ -906,26 +783,26 @@
                 </div>
 
                 <!-- Charts -->
-                <div class="charts-container">
-                    <div class="chart-card">
-                        <div class="chart-title">Most Ordered Items</div>
-                        <div class="chart-wrapper">
-                            <canvas id="itemsChart"></canvas>
-                        </div>
+                <div class="chart-card">
+                    <div class="chart-title">Most Ordered Items</div>
+                    <div class="chart-wrapper">
+                        <canvas id="itemsChart"></canvas>
                     </div>
-                    <div class="chart-card">
-                        <div class="chart-title">Payment Methods</div>
-                        <div class="chart-wrapper">
-                            <canvas id="paymentChart"></canvas>
-                        </div>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-title">Payment Methods</div>
+                    <div class="chart-wrapper">
+                        <canvas id="paymentChart"></canvas>
                     </div>
                 </div>
 
+                <!-- Orders -->
                 <div class="orders-list">
                     <div class="orders-header">
-                        <h4 class="orders-title">Today's Orders</h4>
+                        <h4>Today's Orders</h4>
                         <button class="view-old-btn" onclick="showOldDaysList()">
-                            <i class="fas fa-history"></i> View Old Days
+                            <i class="fas fa-history"></i> Old Days
                         </button>
                     </div>
                     <div id="todayOrders"></div>
@@ -933,7 +810,7 @@
             </div>
         </div>
 
-        <!-- Bottom Navigation -->
+        <!-- Bottom Nav -->
         <div class="bottom-nav">
             <div class="nav-item active" onclick="showPage('home')">
                 <i class="fas fa-home"></i>
@@ -956,7 +833,7 @@
             <h3 style="margin-bottom: 15px;">Your Cart</h3>
             <div id="cartItems"></div>
             <div class="cart-total" id="cartTotal">Total: ₹0</div>
-            <button onclick="showPaymentModal()" style="margin-top: 15px;">Proceed to Payment</button>
+            <button onclick="showPaymentModal()">Proceed to Pay</button>
             <button onclick="closeCart()" class="secondary">Continue Shopping</button>
         </div>
     </div>
@@ -967,11 +844,11 @@
             <h3 style="margin-bottom: 15px;">Select Payment</h3>
             
             <div class="payment-option" onclick="selectPayment('cash')" id="cashOption">
-                <i class="fas fa-money-bill-wave"></i> Cash
+                💵 Cash
             </div>
             
             <div class="payment-option" onclick="selectPayment('online')" id="onlineOption">
-                <i class="fas fa-qrcode"></i> Online (UPI)
+                📱 Online (UPI)
             </div>
             
             <div id="onlinePayment" style="display: none;">
@@ -980,7 +857,7 @@
                 </div>
                 <div class="upi-details">
                     <div class="upi-id">sarathi.edz@fam</div>
-                    <div class="amount-display" id="paymentAmount"></div>
+                    <div style="font-size: 20px; color: #E4002B; font-weight: bold;" id="paymentAmount"></div>
                 </div>
                 <button onclick="processOnlinePayment()">I've Paid</button>
             </div>
@@ -990,17 +867,17 @@
                 <button onclick="processCashPayment()">Confirm Payment</button>
             </div>
             
-            <button onclick="closePaymentModal()" class="secondary" style="margin-top: 10px;">Cancel</button>
+            <button onclick="closePaymentModal()" class="secondary">Cancel</button>
         </div>
     </div>
 
-    <!-- New Day Confirmation Modal -->
+    <!-- New Day Modal -->
     <div class="modal" id="newDayModal">
         <div class="modal-content">
             <h3 style="margin-bottom: 15px;">Start New Day</h3>
-            <p style="text-align: center; margin: 20px 0;" id="newDayDateTime"></p>
-            <p style="color: #666; text-align: center; margin-bottom: 20px;">This will reset today's sales and start fresh</p>
-            <button onclick="startNewDay()">Yes, Start New Day</button>
+            <p style="text-align: center; margin: 15px 0; font-size: 16px;" id="newDayDateTime"></p>
+            <p style="color: #666; text-align: center; margin-bottom: 20px;">This will reset today's sales</p>
+            <button onclick="startNewDay()">Yes, Start</button>
             <button onclick="closeNewDayModal()" class="secondary">Cancel</button>
         </div>
     </div>
@@ -1010,7 +887,7 @@
         <div class="modal-content">
             <h3 style="margin-bottom: 15px;">Previous Days</h3>
             <div id="oldDaysList"></div>
-            <button onclick="closeOldDaysModal()" class="secondary" style="margin-top: 15px;">Close</button>
+            <button onclick="closeOldDaysModal()" class="secondary">Close</button>
         </div>
     </div>
 
@@ -1018,29 +895,22 @@
     <div class="notification" id="notification"></div>
 
     <script>
-        // Firebase setup
+        // Firebase Config
         const firebaseConfig = {
             apiKey: "AIzaSyBxc6D8eZyDgRhClZXeaYJuzvruy7S-nrI",
             authDomain: "sk-shop-admin.firebaseapp.com",
-            databaseURL: "https://sk-shop-admin-default-rtdb.firebaseio.com",
             projectId: "sk-shop-admin",
             storageBucket: "sk-shop-admin.firebasestorage.app",
             messagingSenderId: "269505934",
             appId: "1:269505934:web:35c68fe963961703e8d6b7"
         };
 
-        // Initialize Firebase
+        // Initialize
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        // Enable offline persistence for better mobile performance
-        db.enablePersistence()
-            .catch((err) => {
-                console.log('Persistence error:', err);
-            });
-
-        // Global variables
+        // Global
         let isLoginMode = true;
         let currentUser = null;
         let cart = [];
@@ -1049,10 +919,7 @@
         let itemsChart = null;
         let paymentChart = null;
 
-        // Check if device is mobile
-        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-        // Auth state
+        // Auth
         auth.onAuthStateChanged((user) => {
             if (user) {
                 currentUser = user;
@@ -1064,199 +931,119 @@
                 updateCartCount();
                 showNotification('Welcome ' + user.email.split('@')[0]);
             } else {
-                document.getElementById('loginScreen').style.display = 'block';
+                document.getElementById('loginScreen').style.display = 'flex';
                 document.getElementById('app').classList.remove('active');
             }
         });
 
-        // Toggle login/signup
         function toggleAuthMode() {
             isLoginMode = !isLoginMode;
             document.getElementById('authBtn').textContent = isLoginMode ? 'Login' : 'Sign Up';
         }
 
-        // Handle login/signup
         async function handleAuth() {
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPassword').value;
-            
-            if (!email || !password) {
-                showNotification('Please enter email and password', 'error');
+            const email = document.getElementById('loginEmail').value;
+            const pass = document.getElementById('loginPassword').value;
+            if (!email || !pass) {
+                showNotification('Please fill all fields', 'error');
                 return;
             }
-            
             try {
                 if (isLoginMode) {
-                    await auth.signInWithEmailAndPassword(email, password);
+                    await auth.signInWithEmailAndPassword(email, pass);
                 } else {
-                    await auth.createUserWithEmailAndPassword(email, password);
+                    await auth.createUserWithEmailAndPassword(email, pass);
                 }
-            } catch (error) {
-                showNotification(error.message, 'error');
+            } catch (e) {
+                showNotification(e.message, 'error');
             }
         }
 
-        // Logout
         async function logout() {
             try {
                 await auth.signOut();
                 cart = [];
                 showNotification('Logged out');
-            } catch (error) {
-                showNotification(error.message, 'error');
+            } catch (e) {
+                showNotification(e.message, 'error');
             }
         }
 
-        // Show page with animation
         function showPage(page) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(page + 'Page').classList.add('active');
-            
             document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
             event.currentTarget.classList.add('active');
-            
-            // Scroll to top when changing pages
             document.getElementById('contentArea').scrollTop = 0;
-            
-            if (page === 'overview') {
-                loadTodaySales();
-            }
+            if (page === 'overview') loadTodaySales();
         }
 
-        // Load food items
         async function loadFoodItems() {
             if (!currentUser) return;
-            
             try {
-                const snapshot = await db.collection('foodItems')
+                const snap = await db.collection('foodItems')
                     .where('userId', '==', currentUser.uid)
                     .get();
-                
                 const items = [];
-                snapshot.forEach(doc => {
-                    items.push({ id: doc.id, ...doc.data() });
-                });
-                
-                // Sort by createdAt (newest first)
+                snap.forEach(doc => items.push({ id: doc.id, ...doc.data() }));
                 items.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
                 displayFoodItems(items);
-            } catch (error) {
-                console.error('Error loading items:', error);
+            } catch (e) {
                 showNotification('Error loading items', 'error');
             }
         }
 
-        // Display food items with staggered animation
         function displayFoodItems(items) {
             const grid = document.getElementById('foodGrid');
             grid.innerHTML = '';
-            
             if (items.length === 0) {
-                grid.innerHTML = '<p style="text-align: center; padding: 50px; grid-column: 1/-1;">No items yet. Add some!</p>';
+                grid.innerHTML = '<p style="text-align: center; padding: 30px; grid-column: 1/-1;">No items yet. Add some!</p>';
                 return;
             }
-            
-            items.forEach((item, index) => {
+            items.forEach((item, i) => {
                 const icons = ['fa-pizza-slice', 'fa-hamburger', 'fa-drumstick-bite', 'fa-apple-alt', 'fa-cookie', 'fa-ice-cream'];
-                const icon = icons[index % icons.length];
-                
-                const card = document.createElement('div');
-                card.className = 'food-card';
-                card.style.animationDelay = (index * 0.05) + 's';
-                card.innerHTML = `
-                    <div class="food-icon">
-                        <i class="fas ${icon}"></i>
-                    </div>
-                    <div class="food-info">
-                        <div class="food-name">${escapeHtml(item.name)}</div>
-                        <div class="food-price">₹${item.price}</div>
-                        <button class="add-to-cart-btn" onclick="addToCart('${item.id}', '${escapeHtml(item.name)}', ${item.price})">
-                            Add
-                        </button>
+                grid.innerHTML += `
+                    <div class="food-card">
+                        <div class="food-icon"><i class="fas ${icons[i % 6]}"></i></div>
+                        <div class="food-info">
+                            <div class="food-name">${item.name}</div>
+                            <div class="food-price">₹${item.price}</div>
+                            <button class="add-to-cart-btn" onclick="addToCart('${item.id}', '${item.name.replace(/'/g, "\\'")}', ${item.price})">Add to Cart</button>
+                        </div>
                     </div>
                 `;
-                grid.appendChild(card);
             });
         }
 
-        // Escape HTML
-        function escapeHtml(text) {
-            if (!text) return '';
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        // Search food
         function searchFood() {
             const search = document.getElementById('searchInput').value.toLowerCase();
-            const cards = document.querySelectorAll('.food-card');
-            let visibleCount = 0;
-            
-            cards.forEach(card => {
-                const name = card.querySelector('.food-name').textContent.toLowerCase();
-                if (name.includes(search)) {
-                    card.style.display = 'block';
-                    visibleCount++;
-                } else {
-                    card.style.display = 'none';
-                }
+            document.querySelectorAll('.food-card').forEach(c => {
+                const name = c.querySelector('.food-name').textContent.toLowerCase();
+                c.style.display = name.includes(search) ? 'block' : 'none';
             });
-            
-            // Show message if no results
-            const grid = document.getElementById('foodGrid');
-            const emptyMsg = grid.querySelector('.empty-search');
-            
-            if (visibleCount === 0 && cards.length > 0) {
-                if (!emptyMsg) {
-                    const msg = document.createElement('p');
-                    msg.className = 'empty-search';
-                    msg.style.cssText = 'text-align: center; padding: 50px; grid-column: 1/-1; color: #999;';
-                    msg.textContent = 'No items match your search';
-                    grid.appendChild(msg);
-                }
-            } else if (emptyMsg) {
-                emptyMsg.remove();
-            }
         }
 
-        // Publish food
         async function publishFood() {
-            const name = document.getElementById('foodName').value.trim();
+            const name = document.getElementById('foodName').value;
             const price = parseFloat(document.getElementById('foodPrice').value);
-            
-            if (!name) {
-                showNotification('Please enter food name', 'error');
+            if (!name || !price) {
+                showNotification('Please fill all fields', 'error');
                 return;
             }
-            
-            if (!price || price <= 0) {
-                showNotification('Please enter valid price', 'error');
-                return;
-            }
-            
             try {
                 await db.collection('foodItems').add({
-                    name: name,
-                    price: price,
-                    userId: currentUser.uid,
-                    createdAt: Date.now()
+                    name, price, userId: currentUser.uid, createdAt: Date.now()
                 });
-                
-                showNotification('Food added!');
+                showNotification('Food added successfully!');
                 document.getElementById('foodName').value = '';
                 document.getElementById('foodPrice').value = '';
                 loadFoodItems();
-                
-                // Switch to home page
                 document.querySelectorAll('.nav-item')[0].click();
-            } catch (error) {
-                console.error('Error publishing:', error);
-                showNotification('Error: ' + error.message, 'error');
+            } catch (e) {
+                showNotification(e.message, 'error');
             }
         }
 
-        // Cart functions
         function addToCart(id, name, price) {
             const existing = cart.find(i => i.id === id);
             if (existing) {
@@ -1265,41 +1052,30 @@
                 cart.push({ id, name, price, quantity: 1 });
             }
             updateCartCount();
-            
-            // Animate cart
-            const cartIcon = document.querySelector('.cart-icon i');
-            cartIcon.style.transform = 'scale(1.2)';
-            setTimeout(() => cartIcon.style.transform = 'scale(1)', 200);
-            
-            showNotification(name + ' added');
+            showNotification(name + ' added to cart');
         }
 
         function updateCartCount() {
-            const count = cart.reduce((sum, i) => sum + i.quantity, 0);
-            document.getElementById('cartCount').textContent = count;
+            document.getElementById('cartCount').textContent = cart.reduce((s, i) => s + i.quantity, 0);
         }
 
         function showCart() {
             const modal = document.getElementById('cartModal');
             const itemsDiv = document.getElementById('cartItems');
-            
             if (cart.length === 0) {
-                itemsDiv.innerHTML = '<p style="text-align: center; padding: 20px;">Cart is empty</p>';
+                itemsDiv.innerHTML = '<p style="text-align: center; padding: 20px;">Your cart is empty</p>';
             } else {
                 itemsDiv.innerHTML = '';
-                cart.forEach((item, index) => {
-                    const div = document.createElement('div');
-                    div.className = 'cart-item';
-                    div.style.animationDelay = (index * 0.05) + 's';
-                    div.innerHTML = `
-                        <span>${escapeHtml(item.name)} x${item.quantity}</span>
-                        <span>₹${item.price * item.quantity}</span>
+                cart.forEach(item => {
+                    itemsDiv.innerHTML += `
+                        <div class="cart-item">
+                            <span>${item.name} x${item.quantity}</span>
+                            <span>₹${item.price * item.quantity}</span>
+                        </div>
                     `;
-                    itemsDiv.appendChild(div);
                 });
             }
-            
-            const total = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+            const total = cart.reduce((s, i) => s + (i.price * i.quantity), 0);
             document.getElementById('cartTotal').innerHTML = `Total: <strong>₹${total}</strong>`;
             modal.classList.add('active');
         }
@@ -1308,17 +1084,14 @@
             document.getElementById('cartModal').classList.remove('active');
         }
 
-        // Payment functions
         function showPaymentModal() {
             if (cart.length === 0) {
                 showNotification('Cart is empty', 'error');
                 return;
             }
             closeCart();
-            
-            const total = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+            const total = cart.reduce((s, i) => s + (i.price * i.quantity), 0);
             document.getElementById('paymentAmount').innerHTML = `₹${total}`;
-            
             document.getElementById('paymentModal').classList.add('active');
             document.getElementById('onlinePayment').style.display = 'none';
             document.getElementById('cashPayment').style.display = 'none';
@@ -1333,10 +1106,8 @@
 
         function selectPayment(method) {
             selectedPayment = method;
-            
             document.getElementById('cashOption').classList.remove('selected');
             document.getElementById('onlineOption').classList.remove('selected');
-            
             if (method === 'cash') {
                 document.getElementById('cashOption').classList.add('selected');
                 document.getElementById('onlinePayment').style.display = 'none';
@@ -1345,24 +1116,14 @@
                 document.getElementById('onlineOption').classList.add('selected');
                 document.getElementById('onlinePayment').style.display = 'block';
                 document.getElementById('cashPayment').style.display = 'none';
-                
-                // Generate QR Code
-                const total = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
-                const upiUrl = `upi://pay?pa=sarathi.edz@fam&pn=skedz.shop&am=${total}&cu=INR`;
-                
-                QRCode.toCanvas(document.getElementById('qrCode'), upiUrl, {
-                    width: isMobile ? 150 : 180,
-                    margin: 1,
-                    color: { dark: '#000000', light: '#ffffff' }
-                }, (error) => {
-                    if (error) console.error('QR Error:', error);
-                });
+                const total = cart.reduce((s, i) => s + (i.price * i.quantity), 0);
+                QRCode.toCanvas(document.getElementById('qrCode'), `upi://pay?pa=sarathi.edz@fam&pn=skedz.shop&am=${total}&cu=INR`, { width: 150 });
             }
         }
 
         async function processCashPayment() {
             if (selectedPayment !== 'cash') {
-                showNotification('Select payment method', 'error');
+                showNotification('Please select payment method', 'error');
                 return;
             }
             await processPayment('cash');
@@ -1370,48 +1131,37 @@
 
         async function processOnlinePayment() {
             if (selectedPayment !== 'online') {
-                showNotification('Select payment method', 'error');
+                showNotification('Please select payment method', 'error');
                 return;
             }
             await processPayment('online');
         }
 
         async function processPayment(method) {
-            const total = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
-            
             const order = {
-                items: cart.map(i => ({ 
-                    id: i.id, 
-                    name: i.name, 
-                    price: i.price, 
-                    quantity: i.quantity 
-                })),
-                total: total,
+                items: cart.map(i => ({ id: i.id, name: i.name, price: i.price, quantity: i.quantity })),
+                total: cart.reduce((s, i) => s + (i.price * i.quantity), 0),
                 paymentMethod: method,
                 date: currentDay,
                 timestamp: Date.now(),
                 userId: currentUser.uid
             };
-            
             try {
                 await db.collection('orders').add(order);
-                showNotification('Payment successful!');
+                showNotification('Payment successful! Thank you for your order.');
                 cart = [];
                 updateCartCount();
                 closePaymentModal();
                 loadTodaySales();
-            } catch (error) {
-                console.error('Payment error:', error);
-                showNotification('Error: ' + error.message, 'error');
+            } catch (e) {
+                showNotification(e.message, 'error');
             }
         }
 
-        // Load today's sales
         async function loadTodaySales() {
             if (!currentUser) return;
-            
             try {
-                const snapshot = await db.collection('orders')
+                const snap = await db.collection('orders')
                     .where('userId', '==', currentUser.uid)
                     .where('date', '==', currentDay)
                     .get();
@@ -1419,7 +1169,7 @@
                 const orders = [];
                 let total = 0, cash = 0, upi = 0;
                 
-                snapshot.forEach(doc => {
+                snap.forEach(doc => {
                     const order = doc.data();
                     orders.push(order);
                     total += order.total || 0;
@@ -1427,7 +1177,6 @@
                     else upi += order.total || 0;
                 });
                 
-                // Sort by timestamp (newest first)
                 orders.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
                 
                 document.getElementById('totalSales').textContent = total;
@@ -1436,128 +1185,91 @@
                 
                 displayOrders(orders);
                 updateCharts(orders);
-            } catch (error) {
-                console.error('Error loading sales:', error);
-                showNotification('Error loading sales', 'error');
+            } catch (e) {
+                console.log(e);
             }
         }
 
         function displayOrders(orders) {
             const div = document.getElementById('todayOrders');
             div.innerHTML = '';
-            
             if (orders.length === 0) {
                 div.innerHTML = '<p style="text-align: center; padding: 20px;">No orders today</p>';
                 return;
             }
-            
-            orders.forEach((order, index) => {
-                const item = document.createElement('div');
-                item.className = 'order-item';
-                item.style.animationDelay = (index * 0.05) + 's';
-                
-                const time = order.timestamp ? new Date(order.timestamp).toLocaleTimeString() : 'Just now';
-                
-                item.innerHTML = `
-                    <div>
-                        <div><strong>${order.items?.length || 0} items</strong></div>
-                        <small>${order.paymentMethod} • ${time}</small>
+            orders.forEach(o => {
+                div.innerHTML += `
+                    <div class="order-item">
+                        <div>
+                            <strong>${o.items?.length || 0} items</strong>
+                            <br><small>${o.paymentMethod} • ${new Date(o.timestamp).toLocaleTimeString()}</small>
+                        </div>
+                        <div style="color:#E4002B; font-weight: bold;">₹${o.total || 0}</div>
                     </div>
-                    <div style="font-weight: bold; color: #E4002B;">₹${order.total || 0}</div>
                 `;
-                div.appendChild(item);
             });
         }
 
-        // Update charts
         function updateCharts(orders) {
-            // Calculate item frequencies
             const itemCounts = {};
-            const paymentMethods = { cash: 0, online: 0 };
+            const payments = { cash: 0, online: 0 };
             
-            orders.forEach(order => {
-                if (order.paymentMethod) {
-                    paymentMethods[order.paymentMethod]++;
-                }
-                
-                if (order.items) {
-                    order.items.forEach(item => {
-                        if (itemCounts[item.name]) {
-                            itemCounts[item.name] += item.quantity || 1;
-                        } else {
-                            itemCounts[item.name] = item.quantity || 1;
-                        }
+            orders.forEach(o => {
+                if (o.paymentMethod) payments[o.paymentMethod]++;
+                if (o.items) {
+                    o.items.forEach(i => {
+                        itemCounts[i.name] = (itemCounts[i.name] || 0) + (i.quantity || 1);
                     });
                 }
             });
             
-            // Sort items and get top 5
             const topItems = Object.entries(itemCounts)
                 .sort((a, b) => b[1] - a[1])
                 .slice(0, 5);
             
             // Items Chart
             if (itemsChart) itemsChart.destroy();
-            
-            const itemsCtx = document.getElementById('itemsChart').getContext('2d');
-            itemsChart = new Chart(itemsCtx, {
+            itemsChart = new Chart(document.getElementById('itemsChart'), {
                 type: 'bar',
                 data: {
-                    labels: topItems.length > 0 ? topItems.map(i => i[0]) : ['No Data'],
+                    labels: topItems.length ? topItems.map(i => i[0]) : ['No Data'],
                     datasets: [{
-                        data: topItems.length > 0 ? topItems.map(i => i[1]) : [0],
+                        data: topItems.length ? topItems.map(i => i[1]) : [0],
                         backgroundColor: '#E4002B',
                         borderRadius: 6
                     }]
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { 
-                        legend: { display: false } 
-                    },
-                    scales: {
-                        y: { 
-                            beginAtZero: true, 
-                            grid: { display: false },
-                            ticks: { stepSize: 1 }
-                        },
-                        x: { grid: { display: false } }
-                    }
+                options: { 
+                    responsive: true, 
+                    maintainAspectRatio: false, 
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true, grid: { display: false } } }
                 }
             });
             
             // Payment Chart
             if (paymentChart) paymentChart.destroy();
-            
-            const paymentCtx = document.getElementById('paymentChart').getContext('2d');
-            paymentChart = new Chart(paymentCtx, {
+            paymentChart = new Chart(document.getElementById('paymentChart'), {
                 type: 'doughnut',
                 data: {
                     labels: ['Cash', 'Online'],
                     datasets: [{
-                        data: [paymentMethods.cash, paymentMethods.online],
+                        data: [payments.cash, payments.online],
                         backgroundColor: ['#E4002B', '#666'],
                         borderWidth: 0
                     }]
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { 
-                        legend: { 
-                            position: 'bottom',
-                            labels: { boxWidth: 12 }
-                        } 
-                    },
+                options: { 
+                    responsive: true, 
+                    maintainAspectRatio: false, 
+                    plugins: { legend: { position: 'bottom' } },
                     cutout: '70%'
                 }
             });
         }
 
-        // New Day functions
         function showNewDayModal() {
-            updateDateTime();
+            document.getElementById('newDayDateTime').textContent = new Date().toLocaleString();
             document.getElementById('newDayModal').classList.add('active');
         }
 
@@ -1565,89 +1277,56 @@
             document.getElementById('newDayModal').classList.remove('active');
         }
 
-        function updateDateTime() {
-            const now = new Date();
-            document.getElementById('newDayDateTime').textContent = now.toLocaleString();
-        }
-
-        async function startNewDay() {
-            // Set new day
+        function startNewDay() {
             currentDay = new Date().toDateString();
-            
-            // Clear current display
             document.getElementById('totalSales').textContent = '0';
             document.getElementById('cashTotal').textContent = '0';
             document.getElementById('upiTotal').textContent = '0';
-            document.getElementById('todayOrders').innerHTML = '<p style="text-align: center; padding: 20px;">No orders today</p>';
-            
-            // Reset charts
+            document.getElementById('todayOrders').innerHTML = '<p style="text-align: center;">No orders today</p>';
             updateCharts([]);
-            
-            // Close modal
             closeNewDayModal();
-            
-            // Update date display
             updateDate();
-            
             showNotification('New day started!');
         }
 
-        // Old days functions
         async function showOldDaysList() {
             if (!currentUser) return;
-            
             try {
-                const snapshot = await db.collection('orders')
+                const snap = await db.collection('orders')
                     .where('userId', '==', currentUser.uid)
-                    .orderBy('date', 'desc')
                     .get();
                 
-                const daysMap = new Map();
-                
-                snapshot.forEach(doc => {
-                    const order = doc.data();
-                    if (order.date && order.date !== currentDay) {
-                        if (daysMap.has(order.date)) {
-                            const existing = daysMap.get(order.date);
-                            daysMap.set(order.date, {
-                                total: existing.total + (order.total || 0),
-                                count: existing.count + 1
-                            });
-                        } else {
-                            daysMap.set(order.date, {
-                                total: order.total || 0,
-                                count: 1
-                            });
-                        }
+                const days = new Map();
+                snap.forEach(doc => {
+                    const o = doc.data();
+                    if (o.date && o.date !== currentDay) {
+                        const existing = days.get(o.date) || { total: 0, count: 0 };
+                        days.set(o.date, {
+                            total: existing.total + (o.total || 0),
+                            count: existing.count + 1
+                        });
                     }
                 });
                 
-                const daysList = document.getElementById('oldDaysList');
-                daysList.innerHTML = '';
+                const list = document.getElementById('oldDaysList');
+                list.innerHTML = '';
                 
-                if (daysMap.size === 0) {
-                    daysList.innerHTML = '<p style="text-align: center; padding: 20px;">No previous days</p>';
+                if (days.size === 0) {
+                    list.innerHTML = '<p style="text-align: center; padding: 20px;">No previous days</p>';
                 } else {
-                    // Sort by date (newest first)
-                    const sortedDays = Array.from(daysMap.entries()).sort((a, b) => 
-                        new Date(b[0]) - new Date(a[0])
-                    );
-                    
-                    sortedDays.forEach(([date, data]) => {
-                        const div = document.createElement('div');
-                        div.className = 'day-item';
-                        div.onclick = () => loadDayOrders(date);
-                        div.innerHTML = `
-                            <div class="day-date">${date}</div>
-                            <div class="day-total">₹${data.total} • ${data.count} orders</div>
-                        `;
-                        daysList.appendChild(div);
-                    });
+                    Array.from(days.entries())
+                        .sort((a, b) => new Date(b[0]) - new Date(a[0]))
+                        .forEach(([date, data]) => {
+                            list.innerHTML += `
+                                <div class="day-item" onclick="loadDayOrders('${date}')">
+                                    <div class="day-date">${date}</div>
+                                    <div class="day-total">₹${data.total} • ${data.count} orders</div>
+                                </div>
+                            `;
+                        });
                 }
-                
                 document.getElementById('oldDaysModal').classList.add('active');
-            } catch (error) {
-                console.error('Error loading old days:', error);
+            } catch (e) {
                 showNotification('Error loading old days', 'error');
             }
         }
@@ -1658,9 +1337,8 @@
 
         async function loadDayOrders(date) {
             if (!currentUser) return;
-            
             try {
-                const snapshot = await db.collection('orders')
+                const snap = await db.collection('orders')
                     .where('userId', '==', currentUser.uid)
                     .where('date', '==', date)
                     .get();
@@ -1668,7 +1346,7 @@
                 const orders = [];
                 let total = 0, cash = 0, upi = 0;
                 
-                snapshot.forEach(doc => {
+                snap.forEach(doc => {
                     const order = doc.data();
                     orders.push(order);
                     total += order.total || 0;
@@ -1676,10 +1354,8 @@
                     else upi += order.total || 0;
                 });
                 
-                // Sort by timestamp (newest first)
                 orders.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
                 
-                // Update display with old day data
                 document.getElementById('totalSales').textContent = total;
                 document.getElementById('cashTotal').textContent = cash;
                 document.getElementById('upiTotal').textContent = upi;
@@ -1688,12 +1364,10 @@
                 displayOrders(orders);
                 updateCharts(orders);
                 
-                // Close modal
                 closeOldDaysModal();
                 
-                // Add back button
                 const backBtn = document.createElement('button');
-                backBtn.className = 'view-old-btn';
+                backBtn.className = 'back-btn';
                 backBtn.id = 'backBtn';
                 backBtn.innerHTML = '<i class="fas fa-arrow-left"></i> Back to Today';
                 backBtn.onclick = () => {
@@ -1702,38 +1376,31 @@
                     backBtn.remove();
                 };
                 
-                const existingBtn = document.getElementById('backBtn');
-                if (existingBtn) existingBtn.remove();
+                const existing = document.getElementById('backBtn');
+                if (existing) existing.remove();
                 
                 document.querySelector('.overview-header').appendChild(backBtn);
                 
-            } catch (error) {
-                console.error('Error loading day orders:', error);
+            } catch (e) {
                 showNotification('Error loading orders', 'error');
             }
         }
 
-        // Notification
         function showNotification(message, type = 'success') {
             const notification = document.getElementById('notification');
             notification.textContent = message;
             notification.style.background = type === 'success' ? '#4CAF50' : '#f44336';
             notification.classList.add('show');
-            
             setTimeout(() => notification.classList.remove('show'), 2000);
         }
 
-        // Update date
         function updateDate() {
-            document.getElementById('currentDate').textHTML = new Date().toLocaleDateString('en-US', {
+            document.getElementById('currentDate').innerHTML = new Date().toLocaleDateString('en-US', {
                 month: 'short', day: 'numeric', year: 'numeric'
             });
         }
         updateDate();
         setInterval(updateDate, 60000);
-
-        // Handle touch events on mobile
-        document.addEventListener('touchstart', function() {}, {passive: true});
     </script>
 </body>
 </html>
