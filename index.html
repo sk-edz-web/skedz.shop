@@ -119,6 +119,25 @@
             background: #444;
         }
 
+        /* Blue Remove Button Theme */
+        .remove-btn {
+            background: #0066cc !important;
+            color: white !important;
+            margin-top: 5px !important;
+            font-size: 12px !important;
+            padding: 6px 0 !important;
+            border-radius: 15px !important;
+        }
+
+        .remove-btn:active {
+            background: #004999 !important;
+            transform: scale(0.98);
+        }
+
+        .remove-btn i {
+            margin-right: 5px;
+        }
+
         /* Main App - Full screen */
         #app {
             width: 100%;
@@ -283,6 +302,8 @@
             overflow: hidden;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
         }
 
         .food-card:active {
@@ -304,6 +325,9 @@
 
         .food-info {
             padding: 12px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .food-name {
@@ -329,7 +353,802 @@
             font-size: 13px;
             font-weight: 600;
             width: 100%;
+            margin: 0 0 5px 0;
+        }
+
+        /* Add Page */
+        .add-form {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .form-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 20px;
+        }
+
+        /* Overview Page */
+        .overview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .date-info {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 15px 5px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .stat-title {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #E4002B;
+        }
+
+        /* Charts */
+        .chart-card {
+            background: white;
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .chart-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .chart-wrapper {
+            height: 130px;
+            position: relative;
+        }
+
+        canvas {
+            max-width: 100%;
+            height: auto !important;
+        }
+
+        /* Orders */
+        .orders-list {
+            background: white;
+            border-radius: 16px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .orders-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .orders-header h4 {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .view-old-btn {
+            background: #f0f0f0;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #333;
+        }
+
+        .view-old-btn:active {
+            background: #ddd;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .order-item small {
+            color: #999;
+            font-size: 11px;
+        }
+
+        /* Modals - Full screen on mobile */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 25px;
+            max-width: 90%;
+            width: 350px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-total {
+            margin: 20px 0;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .payment-option {
+            padding: 15px;
+            margin: 8px 0;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .payment-option.selected {
+            border-color: #E4002B;
+            background: #fff0f0;
+            color: #E4002B;
+        }
+
+        .payment-option:active {
+            transform: scale(0.98);
+        }
+
+        .qr-container {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        #qrCode {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .upi-details {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .upi-id {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 5px;
+            word-break: break-all;
+        }
+
+        /* Old Days List */
+        .day-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            transition: all 0.2s;
+        }
+
+        .day-item:active {
+            background: #f5f5f5;
+            transform: translateX(5px);
+        }
+
+        .day-date {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 3px;
+        }
+
+        .day-total {
+            color: #E4002B;
+            font-size: 13px;
+        }
+
+        .back-btn {
+            background: #f0f0f0;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-left: 10px;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #4CAF50;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            display: none;
+            z-index: 3000;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            white-space: nowrap;
+            max-width: 90%;
+        }
+
+        .notification.show {
+            display: block;
+            animation: slideDown 0.3s;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translate(-50%, -100%);
+                opacity: 0;
+            }
+            to {
+                transform: translate(-50%, 0);
+                opacity: 1;
+            }
+        }
+
+        /* Hide scrollbar but keep functionality */
+        .content::-webkit-scrollbar {
+            width: 0;
+            background: transparent;
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 350px) {
+            .food-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                gap: 4px;
+            }
+            
+            .stat-card {
+                padding: 10px 3px;
+            }
+            
+            .stat-value {
+                font-size: 16px;
+            }
+            
+            .user-email {
+                display: none;
+            }
+            
+            .header-left span {
+                font-size: 16px;
+            }
+        }
+
+        /* PC styles */
+        @media (min-width: 768px) {
+            body {
+                padding: 20px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            }
+
+            #loginScreen {
+                max-width: 400px;
+                height: auto;
+                border-radius: 30px;
+                padding: 40px;
+            }
+
+            #app {
+                max-width: 1200px;
+                height: 90vh;
+                border-radius: 30px;
+            }
+
+            .content {
+                padding: 25px;
+            }
+
+            .food-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 20px;
+            }
+
+            .food-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            }
+
+            .nav-item:hover {
+                color: #E4002B;
+            }
+
+            .modal-content {
+                width: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen">
+        <div class="login-logo">
+            <i class="fas fa-store"></i>
+        </div>
+        <h2 class="login-title">skedz.shop</h2>
+        <div class="login-container">
+            <input type="email" id="loginEmail" placeholder="Email">
+            <input type="password" id="loginPassword" placeholder="Password">
+            <button onclick="handleAuth()" id="authBtn">Login</button>
+            <p style="text-align: center; margin-top: 15px;">
+                <a onclick="toggleAuthMode()" style="color: #E4002B; cursor: pointer; text-decoration: none;">Create Account</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="app">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-left">
+                <i class="fas fa-store"></i>
+                <span>skedz.shop</span>
+            </div>
+            <div class="header-right">
+                <span class="user-email" id="userEmail"></span>
+                <div class="cart-icon" onclick="showCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-badge" id="cartCount">0</span>
+                </div>
+                <i class="fas fa-sign-out-alt" onclick="logout()" style="cursor: pointer;"></i>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content" id="contentArea">
+            <!-- Home -->
+            <div id="homePage" class="page active">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="🔍 Search food..." onkeyup="searchFood()">
+                </div>
+                <div class="food-grid" id="foodGrid"></div>
+            </div>
+
+            <!-- Add -->
+            <div id="addPage" class="page">
+                <div class="add-form">
+                    <h3 class="form-title">Add New Food Item</h3>
+                    <input type="text" id="foodName" placeholder="Food Name">
+                    <input type="number" id="foodPrice" placeholder="Price (₹)">
+                    <button onclick="publishFood()">Publish Food</button>
+                </div>
+            </div>
+
+            <!-- Overview -->
+            <div id="overviewPage" class="page">
+                <div class="overview-header">
+                    <div class="date-info" id="currentDate"></div>
+                    <button onclick="showNewDayModal()" style="width: auto; padding: 8px 15px;">New Day</button>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-title">To<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>skedz.shop</title>
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore-compat.js"></script>
+    
+    <!-- QR Code -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #f0f2f5;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+        }
+
+        /* Login Screen - Full screen on mobile */
+        #loginScreen {
+            background: white;
+            padding: 30px 20px;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            max-width: 100%;
+            border-radius: 0;
+        }
+
+        .login-logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .login-logo i {
+            font-size: 80px;
+            color: #E4002B;
+        }
+
+        .login-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 350px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            font-size: 16px;
+            background: #f9f9f9;
+        }
+
+        input:focus {
+            border-color: #E4002B;
+            outline: none;
+            background: white;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: #E4002B;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        button:active {
+            transform: scale(0.98);
+            background: #B3001E;
+        }
+
+        button.secondary {
+            background: #666;
+        }
+
+        button.secondary:active {
+            background: #444;
+        }
+
+        /* Blue Remove Button Theme */
+        .remove-btn {
+            background: #0066cc !important;
+            color: white !important;
+            margin-top: 5px !important;
+            font-size: 12px !important;
+            padding: 6px 0 !important;
+            border-radius: 15px !important;
+        }
+
+        .remove-btn:active {
+            background: #004999 !important;
+            transform: scale(0.98);
+        }
+
+        .remove-btn i {
+            margin-right: 5px;
+        }
+
+        /* Main App - Full screen */
+        #app {
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #app.active {
+            display: block;
+        }
+
+        /* Header */
+        .header {
+            background: #E4002B;
+            padding: 15px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-left i {
+            font-size: 24px;
+        }
+
+        .header-left span {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .cart-icon {
+            position: relative;
+            padding: 5px;
+        }
+
+        .cart-badge {
+            background: #333;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 11px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 18px;
+            text-align: center;
+        }
+
+        .user-email {
+            font-size: 14px;
+            max-width: 120px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        /* Content - Takes remaining height */
+        .content {
+            height: calc(100% - 110px);
+            overflow-y: auto;
+            padding: 15px;
+            background: #f8f9fa;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            border-top: 1px solid #eee;
+            height: 50px;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            padding: 5px 20px;
+            color: #999;
+            transition: all 0.2s;
+        }
+
+        .nav-item.active {
+            color: #E4002B;
+        }
+
+        .nav-item i {
+            font-size: 22px;
+        }
+
+        .nav-item span {
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .nav-item:active {
+            background: #f0f0f0;
+            border-radius: 10px;
+        }
+
+        /* Pages */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Home Page */
+        .search-box {
+            margin-bottom: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: #f8f9fa;
+            padding: 5px 0;
+        }
+
+        .search-box input {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            padding: 12px 20px;
+            margin: 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .food-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .food-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .food-card:active {
+            transform: scale(0.98);
+        }
+
+        .food-icon {
+            background: linear-gradient(135deg, #E4002B, #B3001E);
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .food-icon i {
+            font-size: 45px;
+            color: white;
+        }
+
+        .food-info {
+            padding: 12px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .food-name {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .food-price {
+            color: #E4002B;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .add-to-cart-btn {
+            background: #E4002B;
+            color: white;
+            border: none;
+            padding: 8px 0;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            width: 100%;
+            margin: 0 0 5px 0;
         }
 
         /* Add Page */
@@ -770,637 +1589,4 @@
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-title">Total Sales</div>
-                        <div class="stat-value" id="totalSales">0</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-title">Cash</div>
-                        <div class="stat-value" id="cashTotal">0</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-title">UPI</div>
-                        <div class="stat-value" id="upiTotal">0</div>
-                    </div>
-                </div>
-
-                <!-- Charts -->
-                <div class="chart-card">
-                    <div class="chart-title">Most Ordered Items</div>
-                    <div class="chart-wrapper">
-                        <canvas id="itemsChart"></canvas>
-                    </div>
-                </div>
-                
-                <div class="chart-card">
-                    <div class="chart-title">Payment Methods</div>
-                    <div class="chart-wrapper">
-                        <canvas id="paymentChart"></canvas>
-                    </div>
-                </div>
-
-                <!-- Orders -->
-                <div class="orders-list">
-                    <div class="orders-header">
-                        <h4>Today's Orders</h4>
-                        <button class="view-old-btn" onclick="showOldDaysList()">
-                            <i class="fas fa-history"></i> Old Days
-                        </button>
-                    </div>
-                    <div id="todayOrders"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Bottom Nav -->
-        <div class="bottom-nav">
-            <div class="nav-item active" onclick="showPage('home')">
-                <i class="fas fa-home"></i>
-                <span>Home</span>
-            </div>
-            <div class="nav-item" onclick="showPage('add')">
-                <i class="fas fa-plus-circle"></i>
-                <span>Add</span>
-            </div>
-            <div class="nav-item" onclick="showPage('overview')">
-                <i class="fas fa-chart-bar"></i>
-                <span>Stats</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Cart Modal -->
-    <div class="modal" id="cartModal">
-        <div class="modal-content">
-            <h3 style="margin-bottom: 15px;">Your Cart</h3>
-            <div id="cartItems"></div>
-            <div class="cart-total" id="cartTotal">Total: ₹0</div>
-            <button onclick="showPaymentModal()">Proceed to Pay</button>
-            <button onclick="closeCart()" class="secondary">Continue Shopping</button>
-        </div>
-    </div>
-
-    <!-- Payment Modal -->
-    <div class="modal" id="paymentModal">
-        <div class="modal-content">
-            <h3 style="margin-bottom: 15px;">Select Payment</h3>
-            
-            <div class="payment-option" onclick="selectPayment('cash')" id="cashOption">
-                💵 Cash
-            </div>
-            
-            <div class="payment-option" onclick="selectPayment('online')" id="onlineOption">
-                📱 Online (UPI)
-            </div>
-            
-            <div id="onlinePayment" style="display: none;">
-                <div class="qr-container">
-                    <canvas id="qrCode"></canvas>
-                </div>
-                <div class="upi-details">
-                    <div class="upi-id">sarathi.edz@fam</div>
-                    <div style="font-size: 20px; color: #E4002B; font-weight: bold;" id="paymentAmount"></div>
-                </div>
-                <button onclick="processOnlinePayment()">I've Paid</button>
-            </div>
-            
-            <div id="cashPayment" style="display: none;">
-                <p style="text-align: center; margin: 20px 0;">Pay with cash at counter</p>
-                <button onclick="processCashPayment()">Confirm Payment</button>
-            </div>
-            
-            <button onclick="closePaymentModal()" class="secondary">Cancel</button>
-        </div>
-    </div>
-
-    <!-- New Day Modal -->
-    <div class="modal" id="newDayModal">
-        <div class="modal-content">
-            <h3 style="margin-bottom: 15px;">Start New Day</h3>
-            <p style="text-align: center; margin: 15px 0; font-size: 16px;" id="newDayDateTime"></p>
-            <p style="color: #666; text-align: center; margin-bottom: 20px;">This will reset today's sales</p>
-            <button onclick="startNewDay()">Yes, Start</button>
-            <button onclick="closeNewDayModal()" class="secondary">Cancel</button>
-        </div>
-    </div>
-
-    <!-- Old Days Modal -->
-    <div class="modal" id="oldDaysModal">
-        <div class="modal-content">
-            <h3 style="margin-bottom: 15px;">Previous Days</h3>
-            <div id="oldDaysList"></div>
-            <button onclick="closeOldDaysModal()" class="secondary">Close</button>
-        </div>
-    </div>
-
-    <!-- Notification -->
-    <div class="notification" id="notification"></div>
-
-    <script>
-        // Firebase Config
-        const firebaseConfig = {
-            apiKey: "AIzaSyBxc6D8eZyDgRhClZXeaYJuzvruy7S-nrI",
-            authDomain: "sk-shop-admin.firebaseapp.com",
-            projectId: "sk-shop-admin",
-            storageBucket: "sk-shop-admin.firebasestorage.app",
-            messagingSenderId: "269505934",
-            appId: "1:269505934:web:35c68fe963961703e8d6b7"
-        };
-
-        // Initialize
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.firestore();
-
-        // Global
-        let isLoginMode = true;
-        let currentUser = null;
-        let cart = [];
-        let currentDay = new Date().toDateString();
-        let selectedPayment = null;
-        let itemsChart = null;
-        let paymentChart = null;
-
-        // Auth
-        auth.onAuthStateChanged((user) => {
-            if (user) {
-                currentUser = user;
-                document.getElementById('loginScreen').style.display = 'none';
-                document.getElementById('app').classList.add('active');
-                document.getElementById('userEmail').textContent = user.email.split('@')[0];
-                loadFoodItems();
-                loadTodaySales();
-                updateCartCount();
-                showNotification('Welcome ' + user.email.split('@')[0]);
-            } else {
-                document.getElementById('loginScreen').style.display = 'flex';
-                document.getElementById('app').classList.remove('active');
-            }
-        });
-
-        function toggleAuthMode() {
-            isLoginMode = !isLoginMode;
-            document.getElementById('authBtn').textContent = isLoginMode ? 'Login' : 'Sign Up';
-        }
-
-        async function handleAuth() {
-            const email = document.getElementById('loginEmail').value;
-            const pass = document.getElementById('loginPassword').value;
-            if (!email || !pass) {
-                showNotification('Please fill all fields', 'error');
-                return;
-            }
-            try {
-                if (isLoginMode) {
-                    await auth.signInWithEmailAndPassword(email, pass);
-                } else {
-                    await auth.createUserWithEmailAndPassword(email, pass);
-                }
-            } catch (e) {
-                showNotification(e.message, 'error');
-            }
-        }
-
-        async function logout() {
-            try {
-                await auth.signOut();
-                cart = [];
-                showNotification('Logged out');
-            } catch (e) {
-                showNotification(e.message, 'error');
-            }
-        }
-
-        function showPage(page) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(page + 'Page').classList.add('active');
-            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-            document.getElementById('contentArea').scrollTop = 0;
-            if (page === 'overview') loadTodaySales();
-        }
-
-        async function loadFoodItems() {
-            if (!currentUser) return;
-            try {
-                const snap = await db.collection('foodItems')
-                    .where('userId', '==', currentUser.uid)
-                    .get();
-                const items = [];
-                snap.forEach(doc => items.push({ id: doc.id, ...doc.data() }));
-                items.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
-                displayFoodItems(items);
-            } catch (e) {
-                showNotification('Error loading items', 'error');
-            }
-        }
-
-        function displayFoodItems(items) {
-            const grid = document.getElementById('foodGrid');
-            grid.innerHTML = '';
-            if (items.length === 0) {
-                grid.innerHTML = '<p style="text-align: center; padding: 30px; grid-column: 1/-1;">No items yet. Add some!</p>';
-                return;
-            }
-            items.forEach((item, i) => {
-                const icons = ['fa-pizza-slice', 'fa-hamburger', 'fa-drumstick-bite', 'fa-apple-alt', 'fa-cookie', 'fa-ice-cream'];
-                grid.innerHTML += `
-                    <div class="food-card">
-                        <div class="food-icon"><i class="fas ${icons[i % 6]}"></i></div>
-                        <div class="food-info">
-                            <div class="food-name">${item.name}</div>
-                            <div class="food-price">₹${item.price}</div>
-                            <button class="add-to-cart-btn" onclick="addToCart('${item.id}', '${item.name.replace(/'/g, "\\'")}', ${item.price})">Add to Cart</button>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        function searchFood() {
-            const search = document.getElementById('searchInput').value.toLowerCase();
-            document.querySelectorAll('.food-card').forEach(c => {
-                const name = c.querySelector('.food-name').textContent.toLowerCase();
-                c.style.display = name.includes(search) ? 'block' : 'none';
-            });
-        }
-
-        async function publishFood() {
-            const name = document.getElementById('foodName').value;
-            const price = parseFloat(document.getElementById('foodPrice').value);
-            if (!name || !price) {
-                showNotification('Please fill all fields', 'error');
-                return;
-            }
-            try {
-                await db.collection('foodItems').add({
-                    name, price, userId: currentUser.uid, createdAt: Date.now()
-                });
-                showNotification('Food added successfully!');
-                document.getElementById('foodName').value = '';
-                document.getElementById('foodPrice').value = '';
-                loadFoodItems();
-                document.querySelectorAll('.nav-item')[0].click();
-            } catch (e) {
-                showNotification(e.message, 'error');
-            }
-        }
-
-        function addToCart(id, name, price) {
-            const existing = cart.find(i => i.id === id);
-            if (existing) {
-                existing.quantity++;
-            } else {
-                cart.push({ id, name, price, quantity: 1 });
-            }
-            updateCartCount();
-            showNotification(name + ' added to cart');
-        }
-
-        function updateCartCount() {
-            document.getElementById('cartCount').textContent = cart.reduce((s, i) => s + i.quantity, 0);
-        }
-
-        function showCart() {
-            const modal = document.getElementById('cartModal');
-            const itemsDiv = document.getElementById('cartItems');
-            if (cart.length === 0) {
-                itemsDiv.innerHTML = '<p style="text-align: center; padding: 20px;">Your cart is empty</p>';
-            } else {
-                itemsDiv.innerHTML = '';
-                cart.forEach(item => {
-                    itemsDiv.innerHTML += `
-                        <div class="cart-item">
-                            <span>${item.name} x${item.quantity}</span>
-                            <span>₹${item.price * item.quantity}</span>
-                        </div>
-                    `;
-                });
-            }
-            const total = cart.reduce((s, i) => s + (i.price * i.quantity), 0);
-            document.getElementById('cartTotal').innerHTML = `Total: <strong>₹${total}</strong>`;
-            modal.classList.add('active');
-        }
-
-        function closeCart() {
-            document.getElementById('cartModal').classList.remove('active');
-        }
-
-        function showPaymentModal() {
-            if (cart.length === 0) {
-                showNotification('Cart is empty', 'error');
-                return;
-            }
-            closeCart();
-            const total = cart.reduce((s, i) => s + (i.price * i.quantity), 0);
-            document.getElementById('paymentAmount').innerHTML = `₹${total}`;
-            document.getElementById('paymentModal').classList.add('active');
-            document.getElementById('onlinePayment').style.display = 'none';
-            document.getElementById('cashPayment').style.display = 'none';
-            document.getElementById('cashOption').classList.remove('selected');
-            document.getElementById('onlineOption').classList.remove('selected');
-            selectedPayment = null;
-        }
-
-        function closePaymentModal() {
-            document.getElementById('paymentModal').classList.remove('active');
-        }
-
-        function selectPayment(method) {
-            selectedPayment = method;
-            document.getElementById('cashOption').classList.remove('selected');
-            document.getElementById('onlineOption').classList.remove('selected');
-            if (method === 'cash') {
-                document.getElementById('cashOption').classList.add('selected');
-                document.getElementById('onlinePayment').style.display = 'none';
-                document.getElementById('cashPayment').style.display = 'block';
-            } else {
-                document.getElementById('onlineOption').classList.add('selected');
-                document.getElementById('onlinePayment').style.display = 'block';
-                document.getElementById('cashPayment').style.display = 'none';
-                const total = cart.reduce((s, i) => s + (i.price * i.quantity), 0);
-                QRCode.toCanvas(document.getElementById('qrCode'), `upi://pay?pa=sarathi.edz@fam&pn=skedz.shop&am=${total}&cu=INR`, { width: 150 });
-            }
-        }
-
-        async function processCashPayment() {
-            if (selectedPayment !== 'cash') {
-                showNotification('Please select payment method', 'error');
-                return;
-            }
-            await processPayment('cash');
-        }
-
-        async function processOnlinePayment() {
-            if (selectedPayment !== 'online') {
-                showNotification('Please select payment method', 'error');
-                return;
-            }
-            await processPayment('online');
-        }
-
-        async function processPayment(method) {
-            const order = {
-                items: cart.map(i => ({ id: i.id, name: i.name, price: i.price, quantity: i.quantity })),
-                total: cart.reduce((s, i) => s + (i.price * i.quantity), 0),
-                paymentMethod: method,
-                date: currentDay,
-                timestamp: Date.now(),
-                userId: currentUser.uid
-            };
-            try {
-                await db.collection('orders').add(order);
-                showNotification('Payment successful! Thank you for your order.');
-                cart = [];
-                updateCartCount();
-                closePaymentModal();
-                loadTodaySales();
-            } catch (e) {
-                showNotification(e.message, 'error');
-            }
-        }
-
-        async function loadTodaySales() {
-            if (!currentUser) return;
-            try {
-                const snap = await db.collection('orders')
-                    .where('userId', '==', currentUser.uid)
-                    .where('date', '==', currentDay)
-                    .get();
-                
-                const orders = [];
-                let total = 0, cash = 0, upi = 0;
-                
-                snap.forEach(doc => {
-                    const order = doc.data();
-                    orders.push(order);
-                    total += order.total || 0;
-                    if (order.paymentMethod === 'cash') cash += order.total || 0;
-                    else upi += order.total || 0;
-                });
-                
-                orders.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-                
-                document.getElementById('totalSales').textContent = total;
-                document.getElementById('cashTotal').textContent = cash;
-                document.getElementById('upiTotal').textContent = upi;
-                
-                displayOrders(orders);
-                updateCharts(orders);
-            } catch (e) {
-                console.log(e);
-            }
-        }
-
-        function displayOrders(orders) {
-            const div = document.getElementById('todayOrders');
-            div.innerHTML = '';
-            if (orders.length === 0) {
-                div.innerHTML = '<p style="text-align: center; padding: 20px;">No orders today</p>';
-                return;
-            }
-            orders.forEach(o => {
-                div.innerHTML += `
-                    <div class="order-item">
-                        <div>
-                            <strong>${o.items?.length || 0} items</strong>
-                            <br><small>${o.paymentMethod} • ${new Date(o.timestamp).toLocaleTimeString()}</small>
-                        </div>
-                        <div style="color:#E4002B; font-weight: bold;">₹${o.total || 0}</div>
-                    </div>
-                `;
-            });
-        }
-
-        function updateCharts(orders) {
-            const itemCounts = {};
-            const payments = { cash: 0, online: 0 };
-            
-            orders.forEach(o => {
-                if (o.paymentMethod) payments[o.paymentMethod]++;
-                if (o.items) {
-                    o.items.forEach(i => {
-                        itemCounts[i.name] = (itemCounts[i.name] || 0) + (i.quantity || 1);
-                    });
-                }
-            });
-            
-            const topItems = Object.entries(itemCounts)
-                .sort((a, b) => b[1] - a[1])
-                .slice(0, 5);
-            
-            // Items Chart
-            if (itemsChart) itemsChart.destroy();
-            itemsChart = new Chart(document.getElementById('itemsChart'), {
-                type: 'bar',
-                data: {
-                    labels: topItems.length ? topItems.map(i => i[0]) : ['No Data'],
-                    datasets: [{
-                        data: topItems.length ? topItems.map(i => i[1]) : [0],
-                        backgroundColor: '#E4002B',
-                        borderRadius: 6
-                    }]
-                },
-                options: { 
-                    responsive: true, 
-                    maintainAspectRatio: false, 
-                    plugins: { legend: { display: false } },
-                    scales: { y: { beginAtZero: true, grid: { display: false } } }
-                }
-            });
-            
-            // Payment Chart
-            if (paymentChart) paymentChart.destroy();
-            paymentChart = new Chart(document.getElementById('paymentChart'), {
-                type: 'doughnut',
-                data: {
-                    labels: ['Cash', 'Online'],
-                    datasets: [{
-                        data: [payments.cash, payments.online],
-                        backgroundColor: ['#E4002B', '#666'],
-                        borderWidth: 0
-                    }]
-                },
-                options: { 
-                    responsive: true, 
-                    maintainAspectRatio: false, 
-                    plugins: { legend: { position: 'bottom' } },
-                    cutout: '70%'
-                }
-            });
-        }
-
-        function showNewDayModal() {
-            document.getElementById('newDayDateTime').textContent = new Date().toLocaleString();
-            document.getElementById('newDayModal').classList.add('active');
-        }
-
-        function closeNewDayModal() {
-            document.getElementById('newDayModal').classList.remove('active');
-        }
-
-        function startNewDay() {
-            currentDay = new Date().toDateString();
-            document.getElementById('totalSales').textContent = '0';
-            document.getElementById('cashTotal').textContent = '0';
-            document.getElementById('upiTotal').textContent = '0';
-            document.getElementById('todayOrders').innerHTML = '<p style="text-align: center;">No orders today</p>';
-            updateCharts([]);
-            closeNewDayModal();
-            updateDate();
-            showNotification('New day started!');
-        }
-
-        async function showOldDaysList() {
-            if (!currentUser) return;
-            try {
-                const snap = await db.collection('orders')
-                    .where('userId', '==', currentUser.uid)
-                    .get();
-                
-                const days = new Map();
-                snap.forEach(doc => {
-                    const o = doc.data();
-                    if (o.date && o.date !== currentDay) {
-                        const existing = days.get(o.date) || { total: 0, count: 0 };
-                        days.set(o.date, {
-                            total: existing.total + (o.total || 0),
-                            count: existing.count + 1
-                        });
-                    }
-                });
-                
-                const list = document.getElementById('oldDaysList');
-                list.innerHTML = '';
-                
-                if (days.size === 0) {
-                    list.innerHTML = '<p style="text-align: center; padding: 20px;">No previous days</p>';
-                } else {
-                    Array.from(days.entries())
-                        .sort((a, b) => new Date(b[0]) - new Date(a[0]))
-                        .forEach(([date, data]) => {
-                            list.innerHTML += `
-                                <div class="day-item" onclick="loadDayOrders('${date}')">
-                                    <div class="day-date">${date}</div>
-                                    <div class="day-total">₹${data.total} • ${data.count} orders</div>
-                                </div>
-                            `;
-                        });
-                }
-                document.getElementById('oldDaysModal').classList.add('active');
-            } catch (e) {
-                showNotification('Error loading old days', 'error');
-            }
-        }
-
-        function closeOldDaysModal() {
-            document.getElementById('oldDaysModal').classList.remove('active');
-        }
-
-        async function loadDayOrders(date) {
-            if (!currentUser) return;
-            try {
-                const snap = await db.collection('orders')
-                    .where('userId', '==', currentUser.uid)
-                    .where('date', '==', date)
-                    .get();
-                
-                const orders = [];
-                let total = 0, cash = 0, upi = 0;
-                
-                snap.forEach(doc => {
-                    const order = doc.data();
-                    orders.push(order);
-                    total += order.total || 0;
-                    if (order.paymentMethod === 'cash') cash += order.total || 0;
-                    else upi += order.total || 0;
-                });
-                
-                orders.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-                
-                document.getElementById('totalSales').textContent = total;
-                document.getElementById('cashTotal').textContent = cash;
-                document.getElementById('upiTotal').textContent = upi;
-                document.getElementById('currentDate').textContent = `📅 ${date}`;
-                
-                displayOrders(orders);
-                updateCharts(orders);
-                
-                closeOldDaysModal();
-                
-                const backBtn = document.createElement('button');
-                backBtn.className = 'back-btn';
-                backBtn.id = 'backBtn';
-                backBtn.innerHTML = '<i class="fas fa-arrow-left"></i> Back to Today';
-                backBtn.onclick = () => {
-                    loadTodaySales();
-                    updateDate();
-                    backBtn.remove();
-                };
-                
-                const existing = document.getElementById('backBtn');
-                if (existing) existing.remove();
-                
-                document.querySelector('.overview-header').appendChild(backBtn);
-                
-            } catch (e) {
-                showNotification('Error loading orders', 'error');
-            }
-        }
-
-        function showNotification(message, type = 'success') {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.style.background = type === 'success' ? '#4CAF50' : '#f44336';
-            notification.classList.add('show');
-            setTimeout(() => notification.classList.remove('show'), 2000);
-        }
-
-        function updateDate() {
-            document.getElementById('currentDate').innerHTML = new Date().toLocaleDateString('en-US', {
-                month: 'short', day: 'numeric', year: 'numeric'
-            });
-        }
-        updateDate();
-        setInterval(updateDate, 60000);
-    </script>
-</body>
-</html>
+                        
