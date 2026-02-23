@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>skedz.shop</title>
     
     <!-- Firebase -->
@@ -39,18 +39,16 @@
             padding: 0;
         }
 
-        /* Login Screen - Full screen on mobile */
+        /* Login Screen */
         #loginScreen {
             background: white;
-            padding: 30px 20px;
+            padding: 20px;
             width: 100%;
             height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            max-width: 100%;
-            border-radius: 0;
         }
 
         .login-logo {
@@ -59,7 +57,7 @@
         }
 
         .login-logo i {
-            font-size: 80px;
+            font-size: 70px;
             color: #E4002B;
         }
 
@@ -67,41 +65,35 @@
             text-align: center;
             margin-bottom: 30px;
             color: #333;
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 600;
         }
 
         .login-container {
             width: 100%;
-            max-width: 350px;
+            max-width: 320px;
         }
 
         input {
             width: 100%;
-            padding: 15px;
-            margin: 10px 0;
+            padding: 14px;
+            margin: 8px 0;
             border: 2px solid #ddd;
-            border-radius: 12px;
-            font-size: 16px;
+            border-radius: 10px;
+            font-size: 15px;
             background: #f9f9f9;
-        }
-
-        input:focus {
-            border-color: #E4002B;
-            outline: none;
-            background: white;
         }
 
         button {
             width: 100%;
-            padding: 15px;
+            padding: 14px;
             background: #E4002B;
             color: white;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             font-size: 16px;
             font-weight: 600;
-            margin: 10px 0;
+            margin: 8px 0;
             cursor: pointer;
             transition: all 0.2s;
         }
@@ -115,11 +107,7 @@
             background: #666;
         }
 
-        button.secondary:active {
-            background: #444;
-        }
-
-        /* Blue Remove Button Theme */
+        /* Blue Remove Button */
         .remove-btn {
             background: #0066cc !important;
             color: white !important;
@@ -131,14 +119,9 @@
 
         .remove-btn:active {
             background: #004999 !important;
-            transform: scale(0.98);
         }
 
-        .remove-btn i {
-            margin-right: 5px;
-        }
-
-        /* Main App - Full screen */
+        /* Main App */
         #app {
             width: 100%;
             height: 100%;
@@ -155,33 +138,33 @@
         /* Header */
         .header {
             background: #E4002B;
-            padding: 15px;
+            padding: 12px 15px;
             color: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 60px;
+            height: 55px;
         }
 
         .header-left {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .header-left i {
-            font-size: 24px;
+            font-size: 22px;
         }
 
         .header-left span {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 600;
         }
 
         .header-right {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
 
         .cart-icon {
@@ -194,27 +177,27 @@
             color: white;
             border-radius: 50%;
             padding: 2px 6px;
-            font-size: 11px;
+            font-size: 10px;
             position: absolute;
             top: 0;
             right: 0;
-            min-width: 18px;
+            min-width: 16px;
             text-align: center;
         }
 
         .user-email {
-            font-size: 14px;
-            max-width: 120px;
+            font-size: 13px;
+            max-width: 100px;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
         }
 
-        /* Content - Takes remaining height */
+        /* Content */
         .content {
-            height: calc(100% - 110px);
+            height: calc(100% - 105px);
             overflow-y: auto;
-            padding: 15px;
+            padding: 12px;
             background: #f8f9fa;
             -webkit-overflow-scrolling: touch;
         }
@@ -228,7 +211,7 @@
             background: white;
             display: flex;
             justify-content: space-around;
-            padding: 8px 0;
+            padding: 5px 0;
             border-top: 1px solid #eee;
             height: 50px;
         }
@@ -238,10 +221,10 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 3px;
-            padding: 5px 20px;
+            gap: 2px;
+            padding: 5px 15px;
             color: #999;
-            transition: all 0.2s;
+            font-size: 12px;
         }
 
         .nav-item.active {
@@ -249,17 +232,7 @@
         }
 
         .nav-item i {
-            font-size: 22px;
-        }
-
-        .nav-item span {
-            font-size: 11px;
-            font-weight: 500;
-        }
-
-        .nav-item:active {
-            background: #f0f0f0;
-            border-radius: 10px;
+            font-size: 20px;
         }
 
         /* Pages */
@@ -273,7 +246,7 @@
 
         /* Home Page */
         .search-box {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             position: sticky;
             top: 0;
             z-index: 10;
@@ -285,90 +258,77 @@
             background: white;
             border: 1px solid #ddd;
             border-radius: 25px;
-            padding: 12px 20px;
+            padding: 10px 15px;
             margin: 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            font-size: 14px;
         }
 
         .food-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 10px;
         }
 
         .food-card {
             background: white;
-            border-radius: 16px;
+            border-radius: 14px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            transition: all 0.2s;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .food-card:active {
-            transform: scale(0.98);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
         }
 
         .food-icon {
             background: linear-gradient(135deg, #E4002B, #B3001E);
-            height: 100px;
+            height: 90px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .food-icon i {
-            font-size: 45px;
+            font-size: 40px;
             color: white;
         }
 
         .food-info {
-            padding: 12px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
+            padding: 10px;
         }
 
         .food-name {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
-            margin-bottom: 5px;
-            color: #333;
+            margin-bottom: 4px;
         }
 
         .food-price {
             color: #E4002B;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .add-to-cart-btn {
             background: #E4002B;
             color: white;
             border: none;
-            padding: 8px 0;
-            border-radius: 20px;
-            font-size: 13px;
+            padding: 6px 0;
+            border-radius: 15px;
+            font-size: 12px;
             font-weight: 600;
             width: 100%;
-            margin: 0 0 5px 0;
+            margin: 0;
         }
 
         /* Add Page */
         .add-form {
             background: white;
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 20px;
+            border-radius: 16px;
         }
 
         .form-title {
             text-align: center;
-            margin-bottom: 20px;
-            color: #333;
-            font-size: 20px;
+            margin-bottom: 15px;
+            font-size: 18px;
         }
 
         /* Overview Page */
@@ -376,38 +336,39 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         .date-info {
-            font-size: 14px;
+            font-size: 13px;
             color: #666;
-            font-weight: 500;
         }
 
         .stats-grid {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 15px;
+            gap: 6px;
+            margin-bottom: 12px;
         }
 
         .stat-card {
             background: white;
-            padding: 15px 5px;
-            border-radius: 16px;
+            padding: 10px 3px;
+            border-radius: 12px;
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
         }
 
         .stat-title {
-            font-size: 12px;
+            font-size: 11px;
             color: #999;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
         }
 
         .stat-value {
-            font-size: 18px;
+            font-size: 15px;
             font-weight: 700;
             color: #E4002B;
         }
@@ -415,83 +376,64 @@
         /* Charts */
         .chart-card {
             background: white;
-            border-radius: 16px;
-            padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-radius: 14px;
+            padding: 12px;
+            margin-bottom: 12px;
         }
 
         .chart-title {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
-            color: #333;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .chart-wrapper {
-            height: 130px;
-            position: relative;
-        }
-
-        canvas {
-            max-width: 100%;
-            height: auto !important;
+            height: 120px;
         }
 
         /* Orders */
         .orders-list {
             background: white;
-            border-radius: 16px;
-            padding: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-radius: 14px;
+            padding: 12px;
         }
 
         .orders-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         .orders-header h4 {
-            font-size: 16px;
-            color: #333;
+            font-size: 14px;
         }
 
         .view-old-btn {
             background: #f0f0f0;
             border: none;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 12px;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 11px;
             display: flex;
             align-items: center;
-            gap: 5px;
-            color: #333;
-        }
-
-        .view-old-btn:active {
-            background: #ddd;
+            gap: 4px;
         }
 
         .order-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 0;
+            padding: 10px 0;
             border-bottom: 1px solid #eee;
-        }
-
-        .order-item:last-child {
-            border-bottom: none;
+            font-size: 13px;
         }
 
         .order-item small {
-            color: #999;
-            font-size: 11px;
+            font-size: 10px;
         }
 
-        /* Modals - Full screen on mobile */
+        /* Modals */
         .modal {
             display: none;
             position: fixed;
@@ -503,6 +445,7 @@
             justify-content: center;
             align-items: center;
             z-index: 2000;
+            padding: 10px;
         }
 
         .modal.active {
@@ -511,127 +454,101 @@
 
         .modal-content {
             background: white;
-            padding: 25px;
-            border-radius: 25px;
+            padding: 20px;
+            border-radius: 20px;
             max-width: 90%;
-            width: 350px;
+            width: 320px;
             max-height: 80vh;
             overflow-y: auto;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         .cart-item {
             display: flex;
             justify-content: space-between;
-            padding: 12px 0;
+            padding: 10px 0;
             border-bottom: 1px solid #eee;
+            font-size: 13px;
         }
 
         .cart-total {
-            margin: 20px 0;
-            font-size: 18px;
+            margin: 15px 0;
+            font-size: 16px;
             font-weight: bold;
             text-align: right;
         }
 
         .payment-option {
-            padding: 15px;
-            margin: 8px 0;
+            padding: 12px;
+            margin: 6px 0;
             border: 2px solid #ddd;
-            border-radius: 12px;
+            border-radius: 10px;
             text-align: center;
-            font-size: 16px;
-            font-weight: 500;
-            transition: all 0.2s;
+            font-size: 14px;
         }
 
         .payment-option.selected {
             border-color: #E4002B;
             background: #fff0f0;
-            color: #E4002B;
-        }
-
-        .payment-option:active {
-            transform: scale(0.98);
-        }
-
-        .qr-container {
-            text-align: center;
-            margin: 15px 0;
         }
 
         #qrCode {
-            width: 150px;
-            height: 150px;
-            margin: 0 auto;
+            width: 140px;
+            height: 140px;
+            margin: 10px auto;
             display: block;
         }
 
         .upi-details {
             background: #f5f5f5;
-            padding: 15px;
-            border-radius: 12px;
-            margin: 15px 0;
+            padding: 12px;
+            border-radius: 10px;
+            margin: 10px 0;
             text-align: center;
-        }
-
-        .upi-id {
-            font-weight: bold;
-            font-size: 16px;
-            margin-bottom: 5px;
+            font-size: 13px;
             word-break: break-all;
         }
 
         /* Old Days List */
         .day-item {
-            padding: 15px;
+            padding: 12px;
             border-bottom: 1px solid #eee;
-            transition: all 0.2s;
-        }
-
-        .day-item:active {
-            background: #f5f5f5;
-            transform: translateX(5px);
+            font-size: 13px;
         }
 
         .day-date {
             font-weight: 600;
-            color: #333;
             margin-bottom: 3px;
         }
 
         .day-total {
             color: #E4002B;
-            font-size: 13px;
+            font-size: 12px;
         }
 
         .back-btn {
             background: #f0f0f0;
             border: none;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 12px;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 11px;
             display: inline-flex;
             align-items: center;
-            gap: 5px;
-            margin-left: 10px;
+            gap: 4px;
         }
 
         /* Notification */
         .notification {
             position: fixed;
-            top: 20px;
+            top: 15px;
             left: 50%;
             transform: translateX(-50%);
             background: #4CAF50;
             color: white;
-            padding: 12px 25px;
-            border-radius: 30px;
+            padding: 10px 20px;
+            border-radius: 25px;
             display: none;
             z-index: 3000;
-            font-size: 14px;
-            font-weight: 500;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-size: 13px;
             white-space: nowrap;
             max-width: 90%;
         }
@@ -642,89 +559,32 @@
         }
 
         @keyframes slideDown {
-            from {
-                transform: translate(-50%, -100%);
-                opacity: 0;
-            }
-            to {
-                transform: translate(-50%, 0);
-                opacity: 1;
-            }
+            from { transform: translate(-50%, -100%); opacity: 0; }
+            to { transform: translate(-50%, 0); opacity: 1; }
         }
 
-        /* Hide scrollbar but keep functionality */
+        /* Hide scrollbar */
         .content::-webkit-scrollbar {
             width: 0;
             background: transparent;
         }
 
-        /* Mobile optimizations */
-        @media (max-width: 350px) {
+        /* Very small phones */
+        @media (max-width: 360px) {
             .food-grid {
                 grid-template-columns: 1fr;
-            }
-            
-            .stats-grid {
-                gap: 4px;
-            }
-            
-            .stat-card {
-                padding: 10px 3px;
-            }
-            
-            .stat-value {
-                font-size: 16px;
             }
             
             .user-email {
                 display: none;
             }
             
-            .header-left span {
-                font-size: 16px;
+            .stats-grid {
+                gap: 4px;
             }
-        }
-
-        /* PC styles */
-        @media (min-width: 768px) {
-            body {
-                padding: 20px;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            }
-
-            #loginScreen {
-                max-width: 400px;
-                height: auto;
-                border-radius: 30px;
-                padding: 40px;
-            }
-
-            #app {
-                max-width: 1200px;
-                height: 90vh;
-                border-radius: 30px;
-            }
-
-            .content {
-                padding: 25px;
-            }
-
-            .food-grid {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 20px;
-            }
-
-            .food-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            }
-
-            .nav-item:hover {
-                color: #E4002B;
-            }
-
-            .modal-content {
-                width: 400px;
+            
+            .stat-value {
+                font-size: 14px;
             }
         }
     </style>
@@ -740,7 +600,7 @@
             <input type="email" id="loginEmail" placeholder="Email">
             <input type="password" id="loginPassword" placeholder="Password">
             <button onclick="handleAuth()" id="authBtn">Login</button>
-            <p style="text-align: center; margin-top: 15px;">
+            <p style="text-align: center; margin-top: 12px; font-size: 14px;">
                 <a onclick="toggleAuthMode()" style="color: #E4002B; cursor: pointer; text-decoration: none;">Create Account</a>
             </p>
         </div>
@@ -788,805 +648,92 @@
             <div id="overviewPage" class="page">
                 <div class="overview-header">
                     <div class="date-info" id="currentDate"></div>
-                    <button onclick="showNewDayModal()" style="width: auto; padding: 8px 15px;">New Day</button>
+                    <button onclick="showNewDayModal()" style="width: auto; padding: 6px 12px; font-size: 12px;">New Day</button>
                 </div>
                 
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-title">To<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>skedz.shop</title>
-    
-    <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore-compat.js"></script>
-    
-    <!-- QR Code -->
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        html, body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background: #f0f2f5;
-        }
-
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0;
-        }
-
-        /* Login Screen - Full screen on mobile */
-        #loginScreen {
-            background: white;
-            padding: 30px 20px;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            max-width: 100%;
-            border-radius: 0;
-        }
-
-        .login-logo {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .login-logo i {
-            font-size: 80px;
-            color: #E4002B;
-        }
-
-        .login-title {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #333;
-            font-size: 28px;
-            font-weight: 600;
-        }
-
-        .login-container {
-            width: 100%;
-            max-width: 350px;
-        }
-
-        input {
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            border: 2px solid #ddd;
-            border-radius: 12px;
-            font-size: 16px;
-            background: #f9f9f9;
-        }
-
-        input:focus {
-            border-color: #E4002B;
-            outline: none;
-            background: white;
-        }
-
-        button {
-            width: 100%;
-            padding: 15px;
-            background: #E4002B;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            margin: 10px 0;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        button:active {
-            transform: scale(0.98);
-            background: #B3001E;
-        }
-
-        button.secondary {
-            background: #666;
-        }
-
-        button.secondary:active {
-            background: #444;
-        }
-
-        /* Blue Remove Button Theme */
-        .remove-btn {
-            background: #0066cc !important;
-            color: white !important;
-            margin-top: 5px !important;
-            font-size: 12px !important;
-            padding: 6px 0 !important;
-            border-radius: 15px !important;
-        }
-
-        .remove-btn:active {
-            background: #004999 !important;
-            transform: scale(0.98);
-        }
-
-        .remove-btn i {
-            margin-right: 5px;
-        }
-
-        /* Main App - Full screen */
-        #app {
-            width: 100%;
-            height: 100%;
-            background: white;
-            display: none;
-            position: relative;
-            overflow: hidden;
-        }
-
-        #app.active {
-            display: block;
-        }
-
-        /* Header */
-        .header {
-            background: #E4002B;
-            padding: 15px;
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 60px;
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .header-left i {
-            font-size: 24px;
-        }
-
-        .header-left span {
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .cart-icon {
-            position: relative;
-            padding: 5px;
-        }
-
-        .cart-badge {
-            background: #333;
-            color: white;
-            border-radius: 50%;
-            padding: 2px 6px;
-            font-size: 11px;
-            position: absolute;
-            top: 0;
-            right: 0;
-            min-width: 18px;
-            text-align: center;
-        }
-
-        .user-email {
-            font-size: 14px;
-            max-width: 120px;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
-
-        /* Content - Takes remaining height */
-        .content {
-            height: calc(100% - 110px);
-            overflow-y: auto;
-            padding: 15px;
-            background: #f8f9fa;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        /* Bottom Navigation */
-        .bottom-nav {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            display: flex;
-            justify-content: space-around;
-            padding: 8px 0;
-            border-top: 1px solid #eee;
-            height: 50px;
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 3px;
-            padding: 5px 20px;
-            color: #999;
-            transition: all 0.2s;
-        }
-
-        .nav-item.active {
-            color: #E4002B;
-        }
-
-        .nav-item i {
-            font-size: 22px;
-        }
-
-        .nav-item span {
-            font-size: 11px;
-            font-weight: 500;
-        }
-
-        .nav-item:active {
-            background: #f0f0f0;
-            border-radius: 10px;
-        }
-
-        /* Pages */
-        .page {
-            display: none;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        /* Home Page */
-        .search-box {
-            margin-bottom: 15px;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            background: #f8f9fa;
-            padding: 5px 0;
-        }
-
-        .search-box input {
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 25px;
-            padding: 12px 20px;
-            margin: 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .food-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .food-card {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            transition: all 0.2s;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .food-card:active {
-            transform: scale(0.98);
-        }
-
-        .food-icon {
-            background: linear-gradient(135deg, #E4002B, #B3001E);
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .food-icon i {
-            font-size: 45px;
-            color: white;
-        }
-
-        .food-info {
-            padding: 12px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .food-name {
-            font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: #333;
-        }
-
-        .food-price {
-            color: #E4002B;
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .add-to-cart-btn {
-            background: #E4002B;
-            color: white;
-            border: none;
-            padding: 8px 0;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            width: 100%;
-            margin: 0 0 5px 0;
-        }
-
-        /* Add Page */
-        .add-form {
-            background: white;
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        .form-title {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #333;
-            font-size: 20px;
-        }
-
-        /* Overview Page */
-        .overview-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .date-info {
-            font-size: 14px;
-            color: #666;
-            font-weight: 500;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 15px 5px;
-            border-radius: 16px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .stat-title {
-            font-size: 12px;
-            color: #999;
-            margin-bottom: 5px;
-        }
-
-        .stat-value {
-            font-size: 18px;
-            font-weight: 700;
-            color: #E4002B;
-        }
-
-        /* Charts */
-        .chart-card {
-            background: white;
-            border-radius: 16px;
-            padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .chart-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .chart-wrapper {
-            height: 130px;
-            position: relative;
-        }
-
-        canvas {
-            max-width: 100%;
-            height: auto !important;
-        }
-
-        /* Orders */
-        .orders-list {
-            background: white;
-            border-radius: 16px;
-            padding: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .orders-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .orders-header h4 {
-            font-size: 16px;
-            color: #333;
-        }
-
-        .view-old-btn {
-            background: #f0f0f0;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            color: #333;
-        }
-
-        .view-old-btn:active {
-            background: #ddd;
-        }
-
-        .order-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .order-item:last-child {
-            border-bottom: none;
-        }
-
-        .order-item small {
-            color: #999;
-            font-size: 11px;
-        }
-
-        /* Modals - Full screen on mobile */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 25px;
-            border-radius: 25px;
-            max-width: 90%;
-            width: 350px;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .cart-total {
-            margin: 20px 0;
-            font-size: 18px;
-            font-weight: bold;
-            text-align: right;
-        }
-
-        .payment-option {
-            padding: 15px;
-            margin: 8px 0;
-            border: 2px solid #ddd;
-            border-radius: 12px;
-            text-align: center;
-            font-size: 16px;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-
-        .payment-option.selected {
-            border-color: #E4002B;
-            background: #fff0f0;
-            color: #E4002B;
-        }
-
-        .payment-option:active {
-            transform: scale(0.98);
-        }
-
-        .qr-container {
-            text-align: center;
-            margin: 15px 0;
-        }
-
-        #qrCode {
-            width: 150px;
-            height: 150px;
-            margin: 0 auto;
-            display: block;
-        }
-
-        .upi-details {
-            background: #f5f5f5;
-            padding: 15px;
-            border-radius: 12px;
-            margin: 15px 0;
-            text-align: center;
-        }
-
-        .upi-id {
-            font-weight: bold;
-            font-size: 16px;
-            margin-bottom: 5px;
-            word-break: break-all;
-        }
-
-        /* Old Days List */
-        .day-item {
-            padding: 15px;
-            border-bottom: 1px solid #eee;
-            transition: all 0.2s;
-        }
-
-        .day-item:active {
-            background: #f5f5f5;
-            transform: translateX(5px);
-        }
-
-        .day-date {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 3px;
-        }
-
-        .day-total {
-            color: #E4002B;
-            font-size: 13px;
-        }
-
-        .back-btn {
-            background: #f0f0f0;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            margin-left: 10px;
-        }
-
-        /* Notification */
-        .notification {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #4CAF50;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 30px;
-            display: none;
-            z-index: 3000;
-            font-size: 14px;
-            font-weight: 500;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            white-space: nowrap;
-            max-width: 90%;
-        }
-
-        .notification.show {
-            display: block;
-            animation: slideDown 0.3s;
-        }
-
-        @keyframes slideDown {
-            from {
-                transform: translate(-50%, -100%);
-                opacity: 0;
-            }
-            to {
-                transform: translate(-50%, 0);
-                opacity: 1;
-            }
-        }
-
-        /* Hide scrollbar but keep functionality */
-        .content::-webkit-scrollbar {
-            width: 0;
-            background: transparent;
-        }
-
-        /* Mobile optimizations */
-        @media (max-width: 350px) {
-            .food-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats-grid {
-                gap: 4px;
-            }
-            
-            .stat-card {
-                padding: 10px 3px;
-            }
-            
-            .stat-value {
-                font-size: 16px;
-            }
-            
-            .user-email {
-                display: none;
-            }
-            
-            .header-left span {
-                font-size: 16px;
-            }
-        }
-
-        /* PC styles */
-        @media (min-width: 768px) {
-            body {
-                padding: 20px;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            }
-
-            #loginScreen {
-                max-width: 400px;
-                height: auto;
-                border-radius: 30px;
-                padding: 40px;
-            }
-
-            #app {
-                max-width: 1200px;
-                height: 90vh;
-                border-radius: 30px;
-            }
-
-            .content {
-                padding: 25px;
-            }
-
-            .food-grid {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 20px;
-            }
-
-            .food-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            }
-
-            .nav-item:hover {
-                color: #E4002B;
-            }
-
-            .modal-content {
-                width: 400px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Login Screen -->
-    <div id="loginScreen">
-        <div class="login-logo">
-            <i class="fas fa-store"></i>
+                        <div class="stat-title">Total</div>
+                        <div class="stat-value" id="totalSales">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-title">Cash</div>
+                        <div class="stat-value" id="cashTotal">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-title">UPI</div>
+                        <div class="stat-value" id="upiTotal">0</div>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="chart-card">
+                    <div class="chart-title">Top Items</div>
+                    <div class="chart-wrapper">
+                        <canvas id="itemsChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-title">Payments</div>
+                    <div class="chart-wrapper">
+                        <canvas id="paymentChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Orders -->
+                <div class="orders-list">
+                    <div class="orders-header">
+                        <h4>Today's Orders</h4>
+                        <button class="view-old-btn" onclick="showOldDaysList()">
+                            <i class="fas fa-history"></i> Old Days
+                        </button>
+                    </div>
+                    <div id="todayOrders"></div>
+                </div>
+            </div>
         </div>
-        <h2 class="login-title">skedz.shop</h2>
-        <div class="login-container">
-            <input type="email" id="loginEmail" placeholder="Email">
-            <input type="password" id="loginPassword" placeholder="Password">
-            <button onclick="handleAuth()" id="authBtn">Login</button>
-            <p style="text-align: center; margin-top: 15px;">
-                <a onclick="toggleAuthMode()" style="color: #E4002B; cursor: pointer; text-decoration: none;">Create Account</a>
-            </p>
+
+        <!-- Bottom Nav -->
+        <div class="bottom-nav">
+            <div class="nav-item active" onclick="showPage('home')">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </div>
+            <div class="nav-item" onclick="showPage('add')">
+                <i class="fas fa-plus-circle"></i>
+                <span>Add</span>
+            </div>
+            <div class="nav-item" onclick="showPage('overview')">
+                <i class="fas fa-chart-bar"></i>
+                <span>Stats</span>
+            </div>
         </div>
     </div>
 
-    <!-- Main App -->
-    <div id="app">
-        <!-- Header -->
-        <div class="header">
-            <div class="header-left">
-                <i class="fas fa-store"></i>
-                <span>skedz.shop</span>
-            </div>
-            <div class="header-right">
-                <span class="user-email" id="userEmail"></span>
-                <div class="cart-icon" onclick="showCart()">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-badge" id="cartCount">0</span>
-                </div>
-                <i class="fas fa-sign-out-alt" onclick="logout()" style="cursor: pointer;"></i>
-            </div>
+    <!-- Cart Modal -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 12px; font-size: 16px;">Your Cart</h3>
+            <div id="cartItems"></div>
+            <div class="cart-total" id="cartTotal">Total: ₹0</div>
+            <button onclick="showPaymentModal()" style="padding: 12px;">Pay Now</button>
+            <button onclick="closeCart()" class="secondary" style="padding: 12px;">Close</button>
         </div>
+    </div>
 
-        <!-- Content -->
-        <div class="content" id="contentArea">
-            <!-- Home -->
-            <div id="homePage" class="page active">
-                <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="🔍 Search food..." onkeyup="searchFood()">
+    <!-- Payment Modal -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 12px; font-size: 16px;">Payment</h3>
+            
+            <div class="payment-option" onclick="selectPayment('cash')" id="cashOption">💵 Cash</div>
+            <div class="payment-option" onclick="selectPayment('online')" id="onlineOption">📱 Online (UPI)</div>
+            
+            <div id="onlinePayment" style="display: none;">
+                <div class="qr-container">
+                    <canvas id="qrCode"></canvas>
                 </div>
-                <div class="food-grid" id="foodGrid"></div>
-            </div>
-
-            <!-- Add -->
-            <div id="addPage" class="page">
-                <div class="add-form">
-                    <h3 class="form-title">Add New Food Item</h3>
-                    <input type="text" id="foodName" placeholder="Food Name">
-                    <input type="number" id="foodPrice" placeholder="Price (₹)">
-                    <button onclick="publishFood()">Publish Food</button>
-                </div>
-            </div>
-
-            <!-- Overview -->
-            <div id="overviewPage" class="page">
-                <div class="overview-header">
-                    <div class="date-info" id="currentDate"></div>
-                    <button onclick="showNewDayModal()" style="width: auto; padding: 8px 15px;">New Day</button>
-                </div>
-                
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-title">Total Sales</div>
-                        
+                <div class="upi-details">
+                    <div><strong>sarathi.edz@fam</strong></div>
+                    <div s
