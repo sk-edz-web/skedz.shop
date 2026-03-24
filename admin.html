@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Skedz | Admin Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <link rel="icon" href="logo.jpg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        body {
+            background: #f1f5f9;
+            color: #0f172a;
+            padding: 2rem 1rem;
+        }
+        .admin-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .admin-header {
+            background: #1e293b;
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .admin-header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .logout-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            padding: 8px 18px;
+            border-radius: 40px;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .logout-btn:hover {
+            background: #d44c2f;
+        }
+        .admin-tabs {
+            display: flex;
+            gap: 0.5rem;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 0 2rem;
+        }
+        .admin-tab {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: 0.2s;
+        }
+        .admin-tab.active {
+            border-bottom-color: #1e293b;
+            color: #1e293b;
+        }
+        .tab-content {
+            display: none;
+            padding: 2rem;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .add-product-form {
+            background: #f8fafc;
+            padding: 1.2rem;
+            border-radius: 24px;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: flex-end;
+        }
+        .add-product-form input, .add-product-form textarea, .add-product-form select {
+            flex: 1;
+            padding: 10px 14px;
+            border-radius: 40px;
+            border: 1px solid #cbd5e1;
+            font-size: 0.9rem;
+            background: white;
+        }
+        .add-product-form textarea {
+            border-radius: 20px;
+            resize: vertical;
+            min-height: 80px;
+        }
+        .add-product-form select {
+            cursor: pointer;
+            background: white;
+        }
+        .btn {
+            padding: 8px 16px;
+            border-radius: 40px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary {
+            background: #1e293b;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #2c5a6e;
+        }
+        .btn-danger {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+        .btn-danger:hover {
+            background: #fecaca;
+        }
+        .btn-sm {
+            padding: 4px 12px;
+            font-size: 0.8rem;
+        }
+        .export-btn {
+            background: #0f766e;
+            color: white;
+        }
+        .btn-success {
+            background: #059669;
+            color: white;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            overflow-x: auto;
+            display: block;
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 12px 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background: #f1f5f9;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        input.product-input, textarea.product-input, select.product-input {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            font-size: 0.85rem;
+        }
+        textarea.product-input {
+            resize: vertical;
+            min-height: 60px;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .status-banner {
+            margin: 1rem 2rem;
+            padding: 10px 16px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .status-banner.success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .status-banner.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .status-banner.warning {
+            background: #fed7aa;
+            color: #92400e;
+        }
+        .category-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .category-sk {
+            background: #1e293b;
+            color: white;
+        }
+        .category-creators {
+            background: #d44c2f;
+            color: white;
+        }
+        @media (max-width: 900px) {
+            .admin-tabs { padding: 0 1rem; }
+            .tab-content { padding: 1rem; }
+            th, td { font-size: 0.75rem; white-space: normal; }
+            .add-product-form { flex-direction: column; align-items: stretch; }
+        }
+        .toast-notify {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2b38;
+            color: white;
+            padding: 10px 22px;
+            border-radius: 50px;
+            z-index: 1100;
+            opacity: 0;
+            transition: 0.2s;
+            pointer-events: none;
+        }
+        .toast-notify.show { opacity: 1; }
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #1e293b;
+        }
+    </style>
+</head>
+<body>
+<div id="adminApp" style="display: none;">
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1><i class="fas fa-crown"></i> Skedz Admin</h1>
+            <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </div>
+        <div id="connectionStatus" class="status-banner warning" style="margin: 1rem 2rem 0 2rem;">
+            <i class="fas fa-spinner fa-pulse"></i> Connecting to Firebase...
+        </div>
+        <div class="admin-tabs">
+            <div class="admin-tab" data-tab="products">📦 Manage Products</div>
+            <div class="admin-tab" data-tab="orders">📋 Orders & Export</div>
+        </div>
+        <!-- Products Tab -->
+        <div id="tabProducts" class="tab-content">
+            <div class="add-product-form">
+                <input type="text" id="newProdName" placeholder="Product name" />
+                <input type="number" id="newProdPrice" placeholder="Price (₹)" step="1" />
+                <input type="text" id="newProdImage" placeholder="Image URL (full URL)" />
+                <select id="newProdCreator">
+                    <option value="sk">✨ SK.Products (Our Collection)</option>
+                    <option value="creators">🌟 Other Creators (Partner Products)</option>
+                </select>
+                <textarea id="newProdDesc" placeholder="Product description" rows="2"></textarea>
+                <button class="btn btn-primary" id="addProductBtn"><i class="fas fa-plus"></i> Add Product</button>
+            </div>
+            <div style="overflow-x:auto">
+                <table class="product-table">
+                    <thead>
+                        <tr>
+                            <th>Image URL</th>
+                            <th>Name</th>
+                            <th>Price (₹)</th>
+                            <th>Category</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </thead>
+                    <tbody id="productTableBody">
+                        <tr><td colspan="6" class="loading">Loading products...<br><small>Make sure Firestore is created and rules allow read/write</small></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Orders Tab -->
+        <div id="tabOrders" class="tab-content">
+            <div style="margin-bottom: 1.5rem; display: flex; gap: 12px; flex-wrap: wrap;">
+                <button class="btn export-btn" id="exportCSVBtn"><i class="fas fa-file-csv"></i> Export to CSV</button>
+                <button class="btn btn-danger" id="clearAllOrdersBtn"><i class="fas fa-trash-alt"></i> Delete All Orders</button>
+            </div>
+            <div style="overflow-x:auto">
+                <table class="orders-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Date</th>
+                            <th>Customer Name</th>
+                            <th>Mobile</th>
+                            <th>Email</th>
+                            <th>Card (last 4)</th>
+                            <th>Items</th>
+                            <th>Total (₹)</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody">
+                        <tr><td colspan="9" class="loading">Loading orders...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="loginScreen" style="display: flex; justify-content: center; align-items: center; min-height: 100vh;">
+    <div style="background: white; padding: 2rem; border-radius: 32px; width: 320px; text-align: center; box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);">
+        <h2 style="margin-bottom: 1rem;">🔐 Admin Access</h2>
+        <input type="password" id="adminPassword" placeholder="Enter password" style="width: 100%; padding: 12px; border-radius: 40px; border: 1px solid #cbd5e1; margin-bottom: 1rem;" />
+        <button id="loginBtn" class="btn btn-primary" style="width: 100%;">Login</button>
+        <p style="margin-top: 1rem; font-size: 0.8rem; color: #64748b;">Default: 502310</p>
+    </div>
+</div>
+<div id="toastMsg" class="toast-notify"></div>
+
+<script>
+    // Firebase Configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyD4FPU1uapSWjbpyR1Jjf854T7V4qMV-TM",
+        authDomain: "skedz-a13eb.firebaseapp.com",
+        projectId: "skedz-a13eb",
+        storageBucket: "skedz-a13eb.firebasestorage.app",
+        messagingSenderId: "318431223204",
+        appId: "1:318431223204:web:e53e09d5215773b41eb531",
+        measurementId: "G-R65D4WMB14"
+    };
+
+    let db;
+    let firebaseConnected = false;
+    let products = [];
+    let orders = [];
+
+    // Initialize Firebase
+    try {
+        firebase.initializeApp(firebaseConfig);
+        db = firebase.firestore();
+        console.log("✅ Firebase initialized");
+        updateConnectionStatus("success", "Firebase connected! Testing permissions...");
+        testConnection();
+    } catch (error) {
+        console.error("❌ Firebase init error:", error);
+        updateConnectionStatus("error", "Firebase initialization failed: " + error.message);
+    }
+
+    async function testConnection() {
+        try {
+            // Test write permission
+            const testRef = db.collection("products").doc("test_connection");
+            await testRef.set({ test: true, timestamp: Date.now() });
+            await testRef.delete();
+            console.log("✅ Firestore write permission OK");
+            updateConnectionStatus("success", "Firestore connected - ready to manage products!");
+            firebaseConnected = true;
+            loadProducts();
+            loadOrders();
+        } catch (error) {
+            console.error("❌ Firestore permission error:", error);
+            if (error.code === "permission-denied") {
+                updateConnectionStatus("error", "⚠️ PERMISSION DENIED! Fix your Firestore rules: Go to Firebase Console → Firestore Database → Rules → set allow read, write: if true");
+            } else if (error.code === "not-found") {
+                updateConnectionStatus("warning", "⚠️ Firestore not created. Click 'Create database' in Firebase Console and select 'Start in test mode'");
+            } else {
+                updateConnectionStatus("error", "Firestore error: " + error.message);
+            }
+            // Load demo data
+            loadDemoProducts();
+        }
+    }
+
+    function updateConnectionStatus(type, message) {
+        const banner = document.getElementById("connectionStatus");
+        if (!banner) return;
+        banner.className = `status-banner ${type}`;
+        banner.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-triangle' : 'fa-info-circle'}"></i> ${message}`;
+    }
+
+    function loadDemoProducts() {
+        products = [
+            { id: 1, name: "Cinematic LUTs Pack", price: 4149, image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d6a6?w=300&h=300&fit=crop", description: "Professional LUTs for filmmakers", creator: "sk" },
+            { id: 2, name: "Pro Video Overlays", price: 2490, image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=300&h=300&fit=crop", description: "4K overlays and transitions", creator: "sk" },
+            { id: 101, name: "VHS Glitch Effects", price: 1650, image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=300&h=300&fit=crop", description: "Authentic VHS effects", creator: "creators" }
+        ];
+        renderProductTable();
+        showToast("⚠️ Using demo data. Firebase not connected. Fix rules to enable cloud sync.");
+    }
+
+    async function loadProducts() {
+        if (!firebaseConnected) {
+            renderProductTable();
+            return;
+        }
+        try {
+            const snapshot = await db.collection("products").get();
+            products = [];
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                products.push({ 
+                    id: parseInt(doc.id), 
+                    name: data.name,
+                    price: data.price,
+                    image: data.image,
+                    description: data.description || "Premium digital asset for creators.",
+                    creator: data.creator || "sk"
+                });
+            });
+            products.sort((a, b) => a.id - b.id);
+            console.log(`✅ Loaded ${products.length} products from Firebase`);
+            renderProductTable();
+        } catch (error) {
+            console.error("Error loading products:", error);
+            renderProductTable();
+        }
+    }
+
+    async function loadOrders() {
+        if (!firebaseConnected) {
+            renderOrdersTable();
+            return;
+        }
+        try {
+            const snapshot = await db.collection("orders").orderBy("id", "desc").get();
+            orders = [];
+            snapshot.forEach(doc => {
+                orders.push(doc.data());
+            });
+            console.log(`✅ Loaded ${orders.length} orders from Firebase`);
+            renderOrdersTable();
+        } catch (error) {
+            console.error("Error loading orders:", error);
+            renderOrdersTable();
+        }
+    }
+
+    async function addProductToFirebase(product) {
+        if (!firebaseConnected) {
+            products.push(product);
+            renderProductTable();
+            showToast("⚠️ Product saved locally only (Firebase not connected)");
+            return true;
+        }
+        try {
+            await db.collection("products").doc(product.id.toString()).set(product);
+            console.log(`✅ Product ${product.id} added to Firebase`);
+            showToast("✅ Product added to Firebase!");
+            return true;
+        } catch (error) {
+            console.error("Firebase add error:", error);
+            showToast("❌ Firebase error: " + error.message);
+            return false;
+        }
+    }
+
+    async function updateProductInFirebase(id, data) {
+        if (!firebaseConnected) {
+            const index = products.findIndex(p => p.id === id);
+            if (index !== -1) products[index] = { ...products[index], ...data };
+            renderProductTable();
+            return true;
+        }
+        try {
+            await db.collection("products").doc(id.toString()).set(data);
+            console.log(`✅ Product ${id} updated in Firebase`);
+            return true;
+        } catch (error) {
+            console.error("Update error:", error);
+            showToast("❌ Update failed: " + error.message);
+            return false;
+        }
+    }
+
+    async function deleteProductFromFirebase(id) {
+        if (!firebaseConnected) {
+            products = products.filter(p => p.id !== id);
+            renderProductTable();
+            showToast("⚠️ Product removed locally only");
+            return true;
+        }
+        try {
+            await db.collection("products").doc(id.toString()).delete();
+            console.log(`✅ Product ${id} deleted from Firebase`);
+            showToast("✅ Product deleted successfully!");
+            return true;
+        } catch (error) {
+            console.error("Delete error:", error);
+            showToast("❌ Delete failed: " + error.message);
+            return false;
+        }
+    }
+
+    function formatPrice(price) {
+        return `₹${price.toLocaleString('en-IN')}`;
+    }
+
+    function getCategoryBadge(creator) {
+        if (creator === 'sk') {
+            return '<span class="category-badge category-sk">✨ SK.Products</span>';
+        } else {
+            return '<span class="category-badge category-creators">🌟 Other Creators</span>';
+        }
+    }
+
+    function maskCard(card) {
+        if (!card || card.trim() === "") return "—";
+        const clean = card.replace(/\s/g, '');
+        if (clean.length <= 4) return clean;
+        return "****" + clean.slice(-4);
+    }
+
+    function renderProductTable() {
+        const tbody = document.getElementById("productTableBody");
+        if (!tbody) return;
+        if (products.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center">No products. Click "Add Product" to start!</td></tr>';
+            return;
+        }
+        tbody.innerHTML = '';
+        products.forEach(prod => {
+            const row = tbody.insertRow();
+            // Image URL
+            row.insertCell(0).innerHTML = `<input type="text" class="product-input prod-img" data-id="${prod.id}" value="${escapeHtml(prod.image)}">`;
+            // Name
+            row.insertCell(1).innerHTML = `<input type="text" class="product-input prod-name" data-id="${prod.id}" value="${escapeHtml(prod.name)}">`;
+            // Price
+            row.insertCell(2).innerHTML = `<input type="number" step="1" class="product-input prod-price" data-id="${prod.id}" value="${prod.price}">`;
+            // Category (with dropdown)
+            row.insertCell(3).innerHTML = `
+                <select class="product-input prod-creator" data-id="${prod.id}">
+                    <option value="sk" ${prod.creator === 'sk' ? 'selected' : ''}>✨ SK.Products</option>
+                    <option value="creators" ${prod.creator === 'creators' ? 'selected' : ''}>🌟 Other Creators</option>
+                </select>
+            `;
+            // Description
+            row.insertCell(4).innerHTML = `<textarea class="product-input prod-desc" data-id="${prod.id}" rows="2">${escapeHtml(prod.description || '')}</textarea>`;
+            // Actions
+            const actionsCell = row.insertCell(5);
+            actionsCell.className = "action-buttons";
+            actionsCell.innerHTML = `
+                <button class="btn btn-sm btn-primary update-product" data-id="${prod.id}">Save</button>
+                <button class="btn btn-sm btn-danger delete-product" data-id="${prod.id}">Delete</button>
+            `;
+        });
+        
+        // Update product event
+        document.querySelectorAll('.update-product').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+                const id = parseInt(btn.dataset.id);
+                const newImg = document.querySelector(`.prod-img[data-id="${id}"]`).value;
+                const newName = document.querySelector(`.prod-name[data-id="${id}"]`).value;
+                const newPrice = parseInt(document.querySelector(`.prod-price[data-id="${id}"]`).value);
+                const newCreator = document.querySelector(`.prod-creator[data-id="${id}"]`).value;
+                const newDesc = document.querySelector(`.prod-desc[data-id="${id}"]`).value;
+                
+                if (!newName || isNaN(newPrice) || !newImg) {
+                    showToast("Name, price, and image URL are required");
+                    return;
+                }
+                
+                const updatedProduct = { 
+                    id, 
+                    name: newName, 
+                    price: newPrice, 
+                    image: newImg, 
+                    creator: newCreator, 
+                    description: newDesc 
+                };
+                
+                const success = await updateProductInFirebase(id, updatedProduct);
+                if (success) {
+                    const index = products.findIndex(p => p.id === id);
+                    if (index !== -1) products[index] = updatedProduct;
+                    renderProductTable();
+                    showToast("✅ Product updated");
+                }
+            });
+        });
+        
+        // Delete product event - FIXED!
+        document.querySelectorAll('.delete-product').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const id = parseInt(btn.dataset.id);
+                const productName = products.find(p => p.id === id)?.name || "this product";
+                
+                if (confirm(`⚠️ Are you sure you want to delete "${productName}"? This action cannot be undone.`)) {
+                    console.log(`Attempting to delete product ID: ${id}`);
+                    const success = await deleteProductFromFirebase(id);
+                    if (success) {
+                        products = products.filter(p => p.id !== id);
+                        renderProductTable();
+                    }
+                }
+            });
+        });
+    }
+
+    async function addNewProduct() {
+        const name = document.getElementById("newProdName").value.trim();
+        const price = parseInt(document.getElementById("newProdPrice").value);
+        const image = document.getElementById("newProdImage").value.trim();
+        const creator = document.getElementById("newProdCreator").value;
+        const description = document.getElementById("newProdDesc").value.trim();
+        
+        if (!name || isNaN(price) || !image) {
+            showToast("Please fill: Name, Price, and Image URL");
+            return;
+        }
+        
+        const maxId = products.length > 0 ? Math.max(...products.map(p => p.id)) : 0;
+        const newId = maxId + 1;
+        const newProduct = {
+            id: newId,
+            name,
+            price,
+            image,
+            creator,
+            description: description || "Premium digital asset for creators."
+        };
+        
+        const success = await addProductToFirebase(newProduct);
+        if (success) {
+            products.push(newProduct);
+            renderProductTable();
+            document.getElementById("newProdName").value = '';
+            document.getElementById("newProdPrice").value = '';
+            document.getElementById("newProdImage").value = '';
+            document.getElementById("newProdDesc").value = '';
+            document.getElementById("newProdCreator").value = 'sk';
+        }
+    }
+
+    function renderOrdersTable() {
+        const tbody = document.getElementById("ordersTableBody");
+        if (!tbody) return;
+        if (orders.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="9" style="text-align:center">No orders yet</td></tr>';
+            return;
+        }
+        tbody.innerHTML = '';
+        orders.forEach(order => {
+            const row = tbody.insertRow();
+            row.insertCell(0).innerText = order.id;
+            row.insertCell(1).innerText = order.date;
+            const cust = order.customer || null;
+            row.insertCell(2).innerText = cust ? cust.name : "—";
+            row.insertCell(3).innerText = cust ? cust.mobile : "—";
+            row.insertCell(4).innerText = cust ? cust.email : "—";
+            row.insertCell(5).innerText = cust ? maskCard(cust.card) : "—";
+            row.insertCell(6).innerText = order.itemsSummary || order.items.map(i => `${i.name} x${i.quantity}`).join(', ');
+            row.insertCell(7).innerText = formatPrice(order.total);
+            const actionCell = row.insertCell(8);
+            const delBtn = document.createElement('button');
+            delBtn.innerText = 'Delete';
+            delBtn.className = 'btn btn-sm btn-danger';
+            delBtn.onclick = async () => {
+                if (confirm("Delete this order?")) {
+                    if (firebaseConnected) {
+                        await db.collection("orders").doc(order.id.toString()).delete();
+                    }
+                    orders = orders.filter(o => o.id !== order.id);
+                    renderOrdersTable();
+                    showToast("Order removed");
+                }
+            };
+            actionCell.appendChild(delBtn);
+        });
+    }
+
+    async function deleteAllOrders() {
+        if (confirm("⚠️ Delete ALL orders permanently? This cannot be undone.")) {
+            if (firebaseConnected) {
+                const batch = db.batch();
+                orders.forEach(order => {
+                    batch.delete(db.collection("orders").doc(order.id.toString()));
+                });
+                await batch.commit();
+            }
+            orders = [];
+            renderOrdersTable();
+            showToast("All orders cleared");
+        }
+    }
+
+    function exportToCSV() {
+        if (orders.length === 0) {
+            showToast("No orders to export");
+            return;
+        }
+        const csvRows = [["Order ID", "Date", "Customer Name", "Mobile", "Email", "Card (last 4)", "Items", "Total (₹)"]];
+        orders.forEach(order => {
+            const cust = order.customer || {};
+            csvRows.push([
+                order.id, order.date, cust.name || "", cust.mobile || "", cust.email || "",
+                maskCard(cust.card || ""),
+                order.itemsSummary || order.items.map(i => `${i.name} x${i.quantity}`).join('; '),
+                order.total
+            ]);
+        });
+        const csvContent = csvRows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(",")).join("\n");
+        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = `skedz_orders_${new Date().toISOString().slice(0,19)}.csv`;
+        link.click();
+        URL.revokeObjectURL(link.href);
+        showToast("CSV exported");
+    }
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;');
+    }
+
+    function showToast(msg) {
+        const toast = document.getElementById("toastMsg");
+        toast.innerText = msg;
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 3000);
+    }
+
+    function initTabs() {
+        document.querySelectorAll('.admin-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.dataset.tab;
+                document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+                document.getElementById(`tab${target.charAt(0).toUpperCase() + target.slice(1)}`).classList.add('active');
+                document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                if (target === 'orders') loadOrders();
+                if (target === 'products') renderProductTable();
+            });
+        });
+        document.querySelector('.admin-tab').click();
+    }
+
+    function checkAuth() {
+        const auth = sessionStorage.getItem("skedz_admin_auth");
+        if (auth === "true") {
+            document.getElementById("loginScreen").style.display = "none";
+            document.getElementById("adminApp").style.display = "block";
+            initTabs();
+        } else {
+            document.getElementById("loginScreen").style.display = "flex";
+            document.getElementById("adminApp").style.display = "none";
+        }
+    }
+
+    function login() {
+        if (document.getElementById("adminPassword").value === "502310") {
+            sessionStorage.setItem("skedz_admin_auth", "true");
+            checkAuth();
+        } else {
+            alert("Incorrect password");
+        }
+    }
+
+    function logout() {
+        sessionStorage.removeItem("skedz_admin_auth");
+        checkAuth();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        checkAuth();
+        document.getElementById("loginBtn").addEventListener("click", login);
+        document.getElementById("logoutBtn")?.addEventListener("click", logout);
+        document.getElementById("addProductBtn")?.addEventListener("click", addNewProduct);
+        document.getElementById("exportCSVBtn")?.addEventListener("click", exportToCSV);
+        document.getElementById("clearAllOrdersBtn")?.addEventListener("click", deleteAllOrders);
+        document.getElementById("adminPassword")?.addEventListener("keypress", e => e.key === "Enter" && login());
+    });
+</script>
+</body>
+</html>
